@@ -1,0 +1,3727 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>IssuePulse · 요즘 무슨 일? — 실시간 이슈 브리핑</title>
+    <meta
+      name="description"
+      content="논란·인명사고·연예·스포츠·테크·글로벌 이슈를 30초 요약과 타임라인, 확인된 사실, 공식 입장으로 한눈에 정리하는 실시간 이슈 브리핑 플랫폼."
+    />
+    <meta property="og:title" content="IssuePulse · 요즘 무슨 일?" />
+    <meta
+      property="og:description"
+      content="도대체 무슨 일이지? 화제의 사건·이슈를 30초 요약, 타임라인, 팩트체크로 빠르게 파악하세요."
+    />
+    <meta property="og:type" content="website" />
+    <meta name="theme-color" content="#6D28D9" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f8fafc;
+        --surface: #ffffff;
+        --surface-muted: #f1f5f9;
+        --border: #e2e8f0;
+        --border-strong: #cbd5e1;
+        --text: #0f172a;
+        --text-secondary: #475569;
+        --text-muted: #64748b;
+        --violet: #6d28d9;
+        --violet-hover: #5b21b6;
+        --violet-soft: #f5f3ff;
+        --violet-border: #ddd6fe;
+        --blue: #2563eb;
+        --blue-soft: #eff6ff;
+        --blue-border: #bfdbfe;
+        --rose: #e11d48;
+        --amber: #d97706;
+        --emerald: #059669;
+        --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+        --shadow-lg: 0 20px 45px rgba(15, 23, 42, 0.14);
+        --radius-lg: 16px;
+        --radius-md: 12px;
+        --radius-sm: 8px;
+      }
+
+      html.dark {
+        --bg: #020617;
+        --surface: #0f172a;
+        --surface-muted: #1e293b;
+        --border: #1e293b;
+        --border-strong: #334155;
+        --text: #f1f5f9;
+        --text-secondary: #cbd5e1;
+        --text-muted: #94a3b8;
+        --violet: #8b5cf6;
+        --violet-hover: #7c3aed;
+        --violet-soft: rgba(109, 40, 217, 0.18);
+        --violet-border: rgba(139, 92, 246, 0.42);
+        --blue: #60a5fa;
+        --blue-soft: rgba(37, 99, 235, 0.18);
+        --blue-border: rgba(96, 165, 250, 0.4);
+        --rose: #fb7185;
+        --amber: #fbbf24;
+        --emerald: #34d399;
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+        --shadow-lg: 0 24px 55px rgba(0, 0, 0, 0.6);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        font-family: 'Plus Jakarta Sans', 'Noto Sans KR', -apple-system, BlinkMacSystemFont,
+          'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.55;
+        -webkit-font-smoothing: antialiased;
+        padding-bottom: 76px;
+      }
+
+      @media (min-width: 768px) {
+        body {
+          padding-bottom: 0;
+        }
+      }
+
+      button,
+      input,
+      select,
+      textarea {
+        font: inherit;
+        color: inherit;
+      }
+
+      button {
+        cursor: pointer;
+        border: 0;
+        background: transparent;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .font-mono-num {
+        font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .container {
+        width: 100%;
+        max-width: 1160px;
+        margin: 0 auto;
+        padding: 0 16px;
+      }
+
+      @media (min-width: 640px) {
+        .container {
+          padding: 0 24px;
+        }
+      }
+
+      /* Header */
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        background: color-mix(in srgb, var(--surface) 88%, transparent);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+      }
+
+      .header-inner {
+        height: 64px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .brand-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 4px 0;
+        text-align: left;
+      }
+
+      .brand-mark {
+        width: 34px;
+        height: 34px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #6d28d9, #2563eb);
+        color: #ffffff;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 15px;
+        letter-spacing: -0.03em;
+        flex-shrink: 0;
+      }
+
+      .brand-title {
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        display: block;
+        line-height: 1.15;
+      }
+
+      .brand-sub {
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--violet);
+        display: block;
+      }
+
+      .desktop-nav {
+        display: none;
+        align-items: center;
+        gap: 4px;
+      }
+
+      @media (min-width: 768px) {
+        .desktop-nav {
+          display: flex;
+        }
+      }
+
+      .nav-btn {
+        min-height: 38px;
+        padding: 0 13px;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+        transition: background-color 0.15s, color 0.15s;
+      }
+
+      .nav-btn:hover {
+        background: var(--surface-muted);
+        color: var(--text);
+      }
+
+      .nav-btn.active {
+        background: var(--violet-soft);
+        color: var(--violet);
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .icon-btn {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--text-secondary);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: border-color 0.15s, color 0.15s;
+      }
+
+      .icon-btn:hover {
+        border-color: var(--violet-border);
+        color: var(--violet);
+      }
+
+      /* Mobile Bottom Nav */
+      .mobile-nav {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 40;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        background: color-mix(in srgb, var(--surface) 95%, transparent);
+        backdrop-filter: blur(12px);
+        border-top: 1px solid var(--border);
+        padding: 6px 4px calc(6px + env(safe-area-inset-bottom, 0px));
+      }
+
+      @media (min-width: 768px) {
+        .mobile-nav {
+          display: none;
+        }
+      }
+
+      .mobile-nav-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        padding: 6px 2px;
+        font-size: 11px;
+        font-weight: 600;
+        color: var(--text-muted);
+      }
+
+      .mobile-nav-btn.active {
+        color: var(--violet);
+      }
+
+      /* Shared layout & controls */
+      .page-wrap {
+        padding-top: 22px;
+        padding-bottom: 56px;
+      }
+
+      .status-bar {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: space-between;
+        padding: 12px 16px;
+        border-radius: var(--radius-md);
+        border: 1px solid var(--border);
+        background: var(--surface);
+        font-size: 12px;
+        color: var(--text-secondary);
+      }
+
+      @media (min-width: 768px) {
+        .status-bar {
+          flex-direction: row;
+          align-items: center;
+        }
+      }
+
+      .status-meta {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .status-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn {
+        min-height: 38px;
+        padding: 0 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        white-space: nowrap;
+        transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+      }
+
+      .btn-primary {
+        background: var(--violet);
+        color: #ffffff;
+      }
+
+      .btn-primary:hover {
+        background: var(--violet-hover);
+      }
+
+      .btn-secondary {
+        background: var(--surface-muted);
+        border: 1px solid var(--border);
+        color: var(--text);
+      }
+
+      .btn-secondary:hover {
+        border-color: var(--violet-border);
+        color: var(--violet);
+      }
+
+      .btn-blue-soft {
+        background: var(--blue-soft);
+        border: 1px solid var(--blue-border);
+        color: var(--blue);
+      }
+
+      .btn-violet-soft {
+        background: var(--violet-soft);
+        border: 1px solid var(--violet-border);
+        color: var(--violet);
+      }
+
+      /* Category Tabs */
+      .tab-bar {
+        margin-top: 16px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        overflow-x: auto;
+        padding: 6px;
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border);
+        background: var(--surface);
+      }
+
+      .tab-btn {
+        min-height: 38px;
+        padding: 0 14px;
+        border-radius: 10px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        white-space: nowrap;
+        flex-shrink: 0;
+        transition: background-color 0.15s, color 0.15s;
+      }
+
+      .tab-btn:hover {
+        background: var(--surface-muted);
+        color: var(--text);
+      }
+
+      .tab-btn.active {
+        background: var(--violet);
+        color: #ffffff;
+      }
+
+      .tab-count {
+        font-size: 11px;
+        opacity: 0.75;
+      }
+
+      /* Section headers */
+      .section {
+        margin-top: 38px;
+      }
+
+      .section-head {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 12px;
+        padding-bottom: 12px;
+        margin-bottom: 18px;
+        border-bottom: 1px solid var(--border);
+      }
+
+      @media (min-width: 640px) {
+        .section-head {
+          flex-direction: row;
+          align-items: flex-end;
+        }
+      }
+
+      .eyebrow {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--violet);
+        margin: 0;
+      }
+
+      .h1-title {
+        margin: 4px 0 0;
+        font-size: clamp(22px, 3vw, 30px);
+        font-weight: 800;
+        letter-spacing: -0.025em;
+        line-height: 1.25;
+      }
+
+      .h2-title {
+        margin: 0;
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+
+      .sub-note {
+        margin: 2px 0 0;
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+
+      /* Front-Page Lead Grid */
+      .hero-grid {
+        display: grid;
+        gap: 22px;
+      }
+
+      @media (min-width: 960px) {
+        .hero-grid {
+          grid-template-columns: 7fr 5fr;
+        }
+      }
+
+      .card {
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border);
+        background: var(--surface);
+        overflow: hidden;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .hero-media {
+        aspect-ratio: 16 / 9;
+        width: 100%;
+        background: var(--surface-muted);
+        overflow: hidden;
+      }
+
+      .hero-media img,
+      .card-media img,
+      .detail-figure img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .hero-body {
+        padding: 22px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .meta-line {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 6px;
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+
+      .txt-violet {
+        color: var(--violet);
+        font-weight: 700;
+      }
+
+      .txt-blue {
+        color: var(--blue);
+        font-weight: 600;
+      }
+
+      .txt-rose {
+        color: var(--rose);
+        font-weight: 800;
+      }
+
+      .hero-headline {
+        margin: 0;
+        font-size: clamp(20px, 2.3vw, 25px);
+        font-weight: 800;
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        cursor: pointer;
+      }
+
+      .hero-headline:hover {
+        color: var(--violet);
+      }
+
+      .hero-sub {
+        margin: 0;
+        font-size: 14px;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+
+      .hero-summary-list {
+        list-style: none;
+        margin: 4px 0 0;
+        padding: 14px 0 0;
+        border-top: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        font-size: 13.5px;
+      }
+
+      .hero-summary-list li {
+        display: flex;
+        gap: 10px;
+        align-items: flex-start;
+      }
+
+      .top5-panel {
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .top5-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 6px;
+      }
+
+      .top5-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+        padding: 12px 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .top5-row:last-child {
+        border-bottom: 0;
+      }
+
+      .top5-link {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        text-align: left;
+        flex: 1;
+        min-width: 0;
+      }
+
+      .top5-link:hover .top5-title {
+        color: var(--violet);
+      }
+
+      .top5-rank {
+        font-size: 13px;
+        font-weight: 800;
+        color: var(--violet);
+        width: 22px;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+
+      .top5-title {
+        margin: 4px 0 0;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 1.4;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      /* Sort Toggle */
+      .sort-group {
+        display: inline-flex;
+        flex-wrap: wrap;
+        gap: 4px;
+        padding: 4px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+      }
+
+      .sort-btn {
+        min-height: 32px;
+        padding: 0 10px;
+        border-radius: 8px;
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-secondary);
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+      }
+
+      .sort-btn.active {
+        background: var(--violet);
+        color: #ffffff;
+      }
+
+      /* Card Grid */
+      .cards-grid {
+        display: grid;
+        gap: 20px;
+        grid-template-columns: 1fr;
+      }
+
+      @media (min-width: 640px) {
+        .cards-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (min-width: 980px) {
+        .cards-grid {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .issue-card {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        cursor: pointer;
+        transition: transform 0.15s ease, border-color 0.15s ease;
+      }
+
+      .issue-card:hover {
+        transform: translateY(-2px);
+        border-color: var(--violet-border);
+      }
+
+      .card-media {
+        aspect-ratio: 16 / 10;
+        width: 100%;
+        background: var(--surface-muted);
+        overflow: hidden;
+      }
+
+      .card-body {
+        padding: 18px;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        gap: 14px;
+      }
+
+      .card-title {
+        margin: 8px 0 0;
+        font-size: 17px;
+        font-weight: 700;
+        line-height: 1.4;
+      }
+
+      .issue-card:hover .card-title {
+        color: var(--violet);
+      }
+
+      .card-desc {
+        margin: 8px 0 0;
+        font-size: 13.5px;
+        color: var(--text-secondary);
+        line-height: 1.55;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .card-foot {
+        padding-top: 12px;
+        border-top: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+
+      .metrics-col {
+        min-width: 0;
+        font-size: 11px;
+        color: var(--text-muted);
+      }
+
+      .metrics-row {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: var(--text-secondary);
+        font-weight: 600;
+      }
+
+      .card-btns {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        flex-shrink: 0;
+      }
+
+      .mini-btn {
+        height: 34px;
+        padding: 0 10px;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        color: var(--text-secondary);
+        font-size: 11.5px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .mini-btn:hover {
+        border-color: var(--violet-border);
+        color: var(--violet);
+      }
+
+      .mini-btn.followed {
+        background: var(--violet);
+        border-color: var(--violet);
+        color: #ffffff;
+      }
+
+      .mini-btn.bookmarked {
+        background: var(--blue-soft);
+        border-color: var(--blue-border);
+        color: var(--blue);
+      }
+
+      /* Compact List */
+      .compact-list {
+        padding: 6px 20px;
+      }
+
+      .compact-row {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 14px;
+        padding: 15px 0;
+        border-bottom: 1px solid var(--border);
+        cursor: pointer;
+      }
+
+      .compact-row:last-child {
+        border-bottom: 0;
+      }
+
+      .compact-row:hover .compact-title {
+        color: var(--violet);
+      }
+
+      .compact-title {
+        margin: 4px 0 2px;
+        font-size: 15px;
+        font-weight: 700;
+      }
+
+      .compact-sub {
+        margin: 0;
+        font-size: 13px;
+        color: var(--text-muted);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /* Explore Search */
+      .search-box {
+        padding: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .search-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .input {
+        height: 42px;
+        padding: 0 14px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--bg);
+        font-size: 14px;
+        outline: none;
+      }
+
+      .input:focus {
+        border-color: var(--violet);
+      }
+
+      .textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        background: var(--bg);
+        font-size: 14px;
+        outline: none;
+        resize: vertical;
+      }
+
+      /* Issue Detail */
+      .detail-grid {
+        display: grid;
+        gap: 28px;
+        margin-top: 24px;
+      }
+
+      @media (min-width: 960px) {
+        .detail-grid {
+          grid-template-columns: 7fr 5fr;
+          align-items: start;
+        }
+      }
+
+      .detail-box {
+        padding: 20px;
+      }
+
+      .detail-figure {
+        overflow: hidden;
+        border-radius: var(--radius-lg);
+        border: 1px solid var(--border);
+        background: var(--surface);
+      }
+
+      .detail-figure img {
+        aspect-ratio: 16 / 9;
+      }
+
+      .detail-caption {
+        padding: 10px 16px;
+        border-top: 1px solid var(--border);
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+
+      .summary-box {
+        background: var(--violet-soft);
+        border: 1px solid var(--violet-border);
+        border-radius: var(--radius-lg);
+        padding: 20px;
+      }
+
+      .fact-grid {
+        display: grid;
+        gap: 16px;
+      }
+
+      @media (min-width: 640px) {
+        .fact-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .timeline-item {
+        position: relative;
+        padding-left: 20px;
+        padding-bottom: 18px;
+        border-left: 2px solid var(--border-strong);
+      }
+
+      .timeline-item:last-child {
+        padding-bottom: 0;
+      }
+
+      .timeline-dot {
+        position: absolute;
+        left: -6px;
+        top: 5px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--violet);
+      }
+
+      .qa-thread {
+        max-height: 360px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px;
+        border-radius: 12px;
+        background: var(--bg);
+        border: 1px solid var(--border);
+      }
+
+      .qa-msg {
+        padding: 10px 13px;
+        border-radius: 10px;
+        font-size: 13px;
+        line-height: 1.55;
+      }
+
+      .qa-msg.user {
+        align-self: flex-end;
+        max-width: 85%;
+        background: var(--violet);
+        color: #ffffff;
+      }
+
+      .qa-msg.bot {
+        align-self: flex-start;
+        max-width: 92%;
+        background: var(--surface);
+        border: 1px solid var(--border);
+      }
+
+      /* Modal & Toast */
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        z-index: 60;
+        background: rgba(2, 6, 23, 0.65);
+        backdrop-filter: blur(4px);
+        display: flex;
+        align-items: flex-end;
+        justify-content: center;
+        padding: 0;
+      }
+
+      @media (min-width: 640px) {
+        .modal-backdrop {
+          align-items: center;
+          padding: 16px;
+        }
+      }
+
+      .modal-card {
+        width: 100%;
+        max-width: 660px;
+        max-height: 88vh;
+        overflow-y: auto;
+        border-radius: 18px 18px 0 0;
+        border: 1px solid var(--border);
+        background: var(--surface);
+        padding: 22px;
+        box-shadow: var(--shadow-lg);
+      }
+
+      @media (min-width: 640px) {
+        .modal-card {
+          border-radius: 18px;
+        }
+      }
+
+      .toast {
+        position: fixed;
+        right: 16px;
+        bottom: 84px;
+        z-index: 70;
+        background: #0f172a;
+        color: #ffffff;
+        padding: 10px 16px;
+        border-radius: 12px;
+        font-size: 12.5px;
+        font-weight: 600;
+        box-shadow: var(--shadow-lg);
+      }
+
+      html.dark .toast {
+        background: var(--violet);
+      }
+
+      @media (min-width: 768px) {
+        .toast {
+          bottom: 24px;
+        }
+      }
+
+      .site-footer {
+        display: none;
+        border-top: 1px solid var(--border);
+        background: var(--surface);
+        padding: 28px 0;
+        font-size: 12px;
+        color: var(--text-muted);
+      }
+
+      @media (min-width: 768px) {
+        .site-footer {
+          display: block;
+        }
+      }
+
+      .empty-box {
+        border: 1px dashed var(--border-strong);
+        border-radius: var(--radius-lg);
+        background: var(--surface);
+        padding: 44px 20px;
+        text-align: center;
+      }
+
+      .stack-sm > * + * {
+        margin-top: 10px;
+      }
+      .stack-md > * + * {
+        margin-top: 16px;
+      }
+      .stack-lg > * + * {
+        margin-top: 24px;
+      }
+
+      .grid-2 {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: 1fr;
+      }
+      @media (min-width: 640px) {
+        .grid-2 {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .grid-3 {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: 1fr;
+      }
+      @media (min-width: 640px) {
+        .grid-3 {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .hidden {
+        display: none !important;
+      }
+
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .spin {
+        animation: spin 0.9s linear infinite;
+      }
+    </style>
+  <script src="/_aistudio-iframe.js?v=29045eb3"></script></head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <button type="button" class="brand-btn" data-nav="home">
+          <span class="brand-mark">IP</span>
+          <span>
+            <span class="brand-title">IssuePulse</span>
+            <span class="brand-sub">요즘 무슨 일?</span>
+          </span>
+        </button>
+
+        <nav class="desktop-nav" aria-label="주 메뉴">
+          <button type="button" class="nav-btn" data-nav="home">홈</button>
+          <button type="button" class="nav-btn" data-nav="explore">탐색</button>
+          <button type="button" class="nav-btn" data-nav="saved">관심 이슈</button>
+          <button type="button" class="nav-btn" data-nav="mypage">마이페이지</button>
+          <button type="button" class="nav-btn" data-nav="admin">관리자</button>
+        </nav>
+
+        <div class="header-actions">
+          <a
+            href="/index.html?download=1"
+            download="index.html"
+            class="btn btn-primary"
+            id="btn-download-html"
+            title="단일 실행 index.html 파일 다운로드"
+          >
+            index.html 다운로드
+          </a>
+          <button type="button" class="icon-btn" id="btn-theme-toggle" aria-label="테마 전환">
+            <span id="theme-icon">◐</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="app-main" class="container page-wrap"></main>
+
+    <footer class="site-footer">
+      <div class="container" style="display:flex;align-items:center;justify-content:space-between;gap:16px;">
+        <p style="margin:0;">
+          © 2026 IssuePulse · 요즘 무슨 일? (단일 index.html 무빌드 · 1시간 자동 업데이트)
+        </p>
+        <div style="display:flex;gap:18px;">
+          <button type="button" data-nav="home" style="color:inherit;">홈</button>
+          <button type="button" data-nav="explore" style="color:inherit;">탐색</button>
+          <button type="button" data-nav="admin" style="color:inherit;">관리자 콘솔</button>
+        </div>
+      </div>
+    </footer>
+
+    <nav class="mobile-nav" aria-label="모바일 하단 메뉴">
+      <button type="button" class="mobile-nav-btn" data-nav="home">
+        <span>홈</span>
+      </button>
+      <button type="button" class="mobile-nav-btn" data-nav="explore">
+        <span>탐색</span>
+      </button>
+      <button type="button" class="mobile-nav-btn" data-nav="saved">
+        <span id="mobile-saved-label">관심</span>
+      </button>
+      <button type="button" class="mobile-nav-btn" data-nav="mypage">
+        <span>마이</span>
+      </button>
+      <button type="button" class="mobile-nav-btn" data-nav="admin">
+        <span>관리자</span>
+      </button>
+    </nav>
+
+    <div id="modal-root"></div>
+    <div id="toast-root" class="toast hidden" role="status"></div>
+
+    <script>
+      (() => {
+        'use strict';
+
+        // =========================================================
+        // 1. Constants & Safe Storage (works on file:// & https://)
+        // =========================================================
+        const HOURLY_INTERVAL_MS = 60 * 60 * 1000;
+        const STORAGE_KEYS = {
+          CUSTOM_ISSUES: 'issuepulse_standalone_custom_v1',
+          FOLLOWED: 'issuepulse_standalone_followed_v1',
+          BOOKMARKED: 'issuepulse_standalone_bookmarked_v1',
+          SEARCHES: 'issuepulse_standalone_searches_v1',
+          PREFS: 'issuepulse_standalone_prefs_v1',
+          METRICS: 'issuepulse_standalone_metrics_v1',
+          CACHED_LIVE: 'issuepulse_standalone_live_cache_v1',
+        };
+
+        const memoryStorage = {};
+        const safeStorage = {
+          get(key, fallback) {
+            try {
+              const raw = window.localStorage.getItem(key);
+              if (raw !== null) return JSON.parse(raw);
+            } catch (_) {}
+            return key in memoryStorage ? memoryStorage[key] : fallback;
+          },
+          set(key, value) {
+            memoryStorage[key] = value;
+            try {
+              window.localStorage.setItem(key, JSON.stringify(value));
+            } catch (_) {}
+          },
+        };
+
+        const CATEGORY_LABELS = {
+          controversy: '논란',
+          fatal_accident: '인명사고',
+          entertainment: '연예',
+          sports: '스포츠',
+          tech_economy: '테크',
+          society_culture: '사회',
+          global: '글로벌',
+        };
+
+        const CATEGORY_TABS = [
+          { id: 'all', label: '전체' },
+          { id: 'controversy', label: '논란' },
+          { id: 'fatal_accident', label: '인명사고' },
+          { id: 'entertainment', label: '연예' },
+          { id: 'sports', label: '스포츠' },
+          { id: 'tech_economy', label: '테크' },
+          { id: 'society_culture', label: '사회' },
+          { id: 'global', label: '글로벌' },
+        ];
+
+        const STATUS_LABELS = {
+          ongoing: '진행 중',
+          investigating: '조사 중',
+          statement_released: '입장 발표',
+          resolved: '일단락',
+        };
+
+        // =========================================================
+        // 2. Category Auto-Classifier (pure JS port)
+        // =========================================================
+        const CATEGORY_RULES = [
+          {
+            category: 'fatal_accident',
+            baseWeight: 1.25,
+            keywords: [
+              '사망',
+              '숨져',
+              '숨진',
+              '유명을 달리',
+              '심정지',
+              '명 부상',
+              '부상자',
+              '사상자',
+              '중상',
+              '화재',
+              '산불',
+              '방화',
+              '폭발',
+              '교통사고',
+              '추돌',
+              '다중 추돌',
+              '연쇄 추돌',
+              '역주행',
+              '음주운전',
+              '뺑소니',
+              '붕괴',
+              '추락',
+              '매몰',
+              '싱크홀',
+              '지반 침하',
+              '참사',
+              '중대재해',
+              '산업재해',
+              '익사',
+              '실종',
+              '조난',
+              '질식',
+              '가스 누출',
+              '소방',
+              '스프링클러',
+            ],
+          },
+          {
+            category: 'controversy',
+            baseWeight: 1.15,
+            keywords: [
+              '논란',
+              '이혼',
+              '파경',
+              '결별',
+              '합의 이혼',
+              '열애',
+              '불륜',
+              '외도',
+              '혼외자',
+              '양육비',
+              '사생활',
+              '폭로',
+              '갑질',
+              '학폭',
+              '학교폭력',
+              '사과문',
+              '해명',
+              '반박',
+              '저격',
+              '불매',
+              '자격 논란',
+              '특혜',
+              '의혹',
+              '비판',
+              '고소',
+              '고발',
+              '유튜버',
+              '인플루언서',
+              '사이버렉카',
+              'SNS',
+              '커뮤니티',
+              '밈',
+              '저작권',
+              '폭언',
+            ],
+          },
+          {
+            category: 'entertainment',
+            baseWeight: 1.0,
+            keywords: [
+              '연예',
+              '배우',
+              '가수',
+              '아이돌',
+              '걸그룹',
+              '보이그룹',
+              '래퍼',
+              '방송인',
+              '예능',
+              '드라마',
+              '영화',
+              '소속사',
+              '전속계약',
+              '템퍼링',
+              '하차',
+              '컴백',
+              '콘서트',
+              '시상식',
+            ],
+          },
+          {
+            category: 'sports',
+            baseWeight: 1.05,
+            keywords: [
+              '스포츠',
+              '프로야구',
+              'KBO',
+              'MLB',
+              '메이저리그',
+              '스토브리그',
+              'FA',
+              '트레이드',
+              '언플',
+              '샐러리캡',
+              '포스팅',
+              '축구',
+              '손흥민',
+              '이강인',
+              '김민재',
+              '프리미어리그',
+              '배구',
+              'V리그',
+              '농구',
+              'KBL',
+              '올림픽',
+              '구단',
+              '감독',
+              '마라톤',
+            ],
+          },
+          {
+            category: 'tech_economy',
+            baseWeight: 1.0,
+            keywords: [
+              'AI',
+              '인공지능',
+              '엔비디아',
+              '젠슨황',
+              '젠슨 황',
+              '반도체',
+              'HBM',
+              '삼성전자',
+              'SK하이닉스',
+              '해킹',
+              '개인정보',
+              '유출',
+              '먹통',
+              '장애',
+              '보안',
+              '오픈AI',
+              '구글',
+              '애플',
+              '테슬라',
+              '코스피',
+              '환율',
+            ],
+          },
+          {
+            category: 'society_culture',
+            baseWeight: 0.95,
+            keywords: [
+              '경찰',
+              '검찰',
+              '수사',
+              '구속',
+              '재판',
+              '법원',
+              '수능',
+              '대학',
+              '입시',
+              '국회',
+              '정부',
+              '정책',
+              '파업',
+              '지하철',
+              '서울',
+              '아파트',
+              '부동산',
+              '전세',
+              '물가',
+            ],
+          },
+          {
+            category: 'global',
+            baseWeight: 0.95,
+            keywords: [
+              '트럼프',
+              '바이든',
+              '미국',
+              '백악관',
+              '중국',
+              '일본',
+              '러시아',
+              '우크라이나',
+              '이스라엘',
+              '중동',
+              '북한',
+              '미사일',
+              '외교',
+              '관세',
+              '제재',
+              '유엔',
+              '정상회담',
+              '글로벌',
+            ],
+          },
+        ];
+
+        function classifyIssueCategory(text, fallbackCategory) {
+          const normalized = String(text || '').toLowerCase();
+          const scores = [];
+          const matchedAll = [];
+
+          for (const rule of CATEGORY_RULES) {
+            let hits = 0;
+            const matched = [];
+            for (const kw of rule.keywords) {
+              if (normalized.includes(kw.toLowerCase())) {
+                hits++;
+                matched.push(kw);
+              }
+            }
+            if (hits > 0) {
+              scores.push({
+                category: rule.category,
+                score: hits * rule.baseWeight,
+                matched,
+              });
+              matchedAll.push(...matched);
+            }
+          }
+
+          scores.sort((a, b) => b.score - a.score);
+          if (scores.length === 0) {
+            return {
+              primaryCategory: fallbackCategory || 'controversy',
+              secondaryCategories: [],
+              confidence: 0.45,
+              matchedKeywords: [],
+              method: 'feed_fallback',
+            };
+          }
+          const primary = scores[0];
+          const secondary = scores
+            .slice(1, 3)
+            .filter((s) => s.score >= primary.score * 0.45)
+            .map((s) => s.category);
+
+          return {
+            primaryCategory: primary.category,
+            secondaryCategories: secondary,
+            confidence: Math.min(0.98, 0.55 + primary.score * 0.12),
+            matchedKeywords: Array.from(new Set(matchedAll)).slice(0, 6),
+            method: 'keyword_rules',
+          };
+        }
+
+        // =========================================================
+        // 3. Topic-Matched Editorial Artwork SVG Generator (14 Themes)
+        // =========================================================
+        const TOPIC_PROFILES = [
+          {
+            id: 'fire_emergency',
+            altSubject: '화재 현장 대응 및 소방 출동 참고 그래픽',
+            categories: ['fatal_accident', 'society_culture'],
+            keywords: ['화재', '불', '산불', '방화', '폭발', '소방', '스프링클러', '연기', '지하주차장'],
+            palette: ['#1e1b4b', '#7f1d1d', '#f97316', '#fde047'],
+            motif: 'fire',
+          },
+          {
+            id: 'traffic_crash',
+            altSubject: '도로 교통사고 및 긴급 통제 참고 그래픽',
+            categories: ['fatal_accident', 'society_culture'],
+            keywords: ['교통사고', '추돌', '고속도로', '화물차', '음주운전', '역주행', '빙판길', '버스', '열차'],
+            palette: ['#0f172a', '#1e3a8a', '#ef4444', '#38bdf8'],
+            motif: 'traffic',
+          },
+          {
+            id: 'urban_safety',
+            altSubject: '도심 시설 안전 점검 및 사고 조사 참고 그래픽',
+            categories: ['fatal_accident', 'society_culture'],
+            keywords: ['붕괴', '추락', '싱크홀', '지반', '공사장', '안전사고', '지하철', '안전점검'],
+            palette: ['#1e293b', '#334155', '#f59e0b', '#fbbf24'],
+            motif: 'urban',
+          },
+          {
+            id: 'couple_breakup',
+            altSubject: '인물 이혼·결별 및 입장 대립 참고 그래픽',
+            categories: ['controversy', 'entertainment'],
+            keywords: ['이혼', '결별', '파경', '합의 이혼', '불륜', '부부', '결혼', '열애'],
+            palette: ['#18181b', '#4c1d95', '#a855f7', '#e2e8f0'],
+            motif: 'split',
+          },
+          {
+            id: 'creator_youtube',
+            altSubject: '유튜브·크리에이터 방송 및 온라인 이슈 참고 그래픽',
+            categories: ['controversy', 'entertainment', 'tech_economy'],
+            keywords: ['유튜버', '유튜브', '크리에이터', '인플루언서', '스트리머', '사이버렉카', '방송'],
+            palette: ['#09090b', '#312e81', '#ec4899', '#60a5fa'],
+            motif: 'studio',
+          },
+          {
+            id: 'police_courthouse',
+            altSubject: '경찰 수사 및 법원·법적 공방 참고 그래픽',
+            categories: ['controversy', 'society_culture', 'fatal_accident'],
+            keywords: ['경찰', '검찰', '수사', '구속', '재판', '법원', '선고', '고소', '고발', '가처분', '소송'],
+            palette: ['#0f172a', '#1e293b', '#3b82f6', '#cbd5e1'],
+            motif: 'court',
+          },
+          {
+            id: 'entertainment_spotlight',
+            altSubject: '연예계 기자회견 및 스포트라이트 브리핑 참고 그래픽',
+            categories: ['entertainment', 'controversy'],
+            keywords: ['배우', '가수', '아이돌', '래퍼', '소속사', '전속계약', '템퍼링', '드라마', '영화', '콘서트'],
+            palette: ['#1e1b4b', '#581c87', '#c084fc', '#38bdf8'],
+            motif: 'stage',
+          },
+          {
+            id: 'sns_controversy',
+            altSubject: 'SNS 공론화 및 온라인 여론 확산 참고 그래픽',
+            categories: ['controversy', 'society_culture'],
+            keywords: ['SNS', '사과문', '해명', '폭로', '갑질', '불매', '논란', '저작권', '밈', '폭언', '의회'],
+            palette: ['#312e81', '#4338ca', '#8b5cf6', '#38bdf8'],
+            motif: 'pulse',
+          },
+          {
+            id: 'exam_campus',
+            altSubject: '학교·캠퍼스 및 입시·교육 이슈 참고 그래픽',
+            categories: ['society_culture', 'controversy'],
+            keywords: ['수능', '대학', '학교', '교사', '학폭', '입시', '의대', '시험'],
+            palette: ['#1e293b', '#0f766e', '#2dd4bf', '#fef08a'],
+            motif: 'campus',
+          },
+          {
+            id: 'pro_baseball',
+            altSubject: '프로야구 스토브리그 및 FA 협상 참고 그래픽',
+            categories: ['sports'],
+            keywords: ['야구', '프로야구', 'KBO', 'MLB', '스토브리그', 'FA', '투수', '구단', '트레이드', '포스팅'],
+            palette: ['#064e3b', '#0f172a', '#22c55e', '#f8fafc'],
+            motif: 'baseball',
+          },
+          {
+            id: 'sports_stadium',
+            altSubject: '국내·글로벌 스포츠 경기장 및 이적 이슈 참고 그래픽',
+            categories: ['sports', 'fatal_accident'],
+            keywords: ['축구', '손흥민', '이강인', '프리미어리그', '배구', 'V리그', '농구', 'KBL', '올림픽', '마라톤'],
+            palette: ['#0f172a', '#1d4ed8', '#34d399', '#93c5fd'],
+            motif: 'stadium',
+          },
+          {
+            id: 'cyber_security',
+            altSubject: '데이터센터 장애 및 사이버 보안 이슈 참고 그래픽',
+            categories: ['tech_economy', 'society_culture'],
+            keywords: ['해킹', '개인정보', '유출', '먹통', '장애', '서버', '보안', '랜섬웨어', '딥페이크'],
+            palette: ['#020617', '#1e1b4b', '#6366f1', '#22d3ee'],
+            motif: 'cyber',
+          },
+          {
+            id: 'tech_keynote',
+            altSubject: 'AI·반도체 및 빅테크 산업 동향 참고 그래픽',
+            categories: ['tech_economy', 'global'],
+            keywords: ['AI', '인공지능', '엔비디아', '젠슨황', '젠슨 황', '반도체', 'HBM', '삼성전자', '애플', '구글', '테슬라'],
+            palette: ['#0f172a', '#4c1d95', '#7c3aed', '#2563eb'],
+            motif: 'chip',
+          },
+          {
+            id: 'global_diplomacy',
+            altSubject: '국제 정세·외교 및 글로벌 정상 이슈 참고 그래픽',
+            categories: ['global', 'society_culture'],
+            keywords: ['트럼프', '미국', '중국', '일본', '러시아', '북한', '정상회담', '외교', '관세', '제재', '전쟁', '글로벌'],
+            palette: ['#0f172a', '#1e3a8a', '#2563eb', '#f59e0b'],
+            motif: 'globe',
+          },
+        ];
+
+        function quickHash(str) {
+          let h = 0;
+          for (let i = 0; i < str.length; i++) {
+            h = (h * 31 + str.charCodeAt(i)) | 0;
+          }
+          return Math.abs(h);
+        }
+
+        function buildTopicSvgDataUri(profile, title) {
+          const [bg1, bg2, accent1, accent2] = profile.palette;
+          const uid = profile.id + '_' + (quickHash(title) % 9999);
+          let motifSvg = '';
+
+          switch (profile.motif) {
+            case 'fire':
+              motifSvg = `
+                <path d="M0 290 L140 210 L260 245 L390 175 L540 230 L640 190 L640 360 L0 360 Z" fill="#090d16" opacity="0.72"/>
+                <path d="M320 95 C355 150 385 185 372 242 C360 285 280 285 268 242 C255 190 295 148 320 95 Z" fill="${accent1}" opacity="0.9"/>
+                <path d="M320 145 C340 180 355 205 346 238 C338 262 302 262 294 238 C286 208 304 175 320 145 Z" fill="${accent2}"/>
+                <circle cx="155" cy="255" r="14" fill="#ef4444"/><circle cx="155" cy="255" r="28" fill="#ef4444" opacity="0.24"/>
+                <circle cx="490" cy="245" r="12" fill="#3b82f6"/><circle cx="490" cy="245" r="24" fill="#3b82f6" opacity="0.22"/>`;
+              break;
+            case 'traffic':
+              motifSvg = `
+                <polygon points="210,360 285,140 355,140 430,360" fill="#020617" opacity="0.78"/>
+                <line x1="320" y1="150" x2="320" y2="355" stroke="#fde047" stroke-width="4" stroke-dasharray="18 14"/>
+                <circle cx="245" cy="180" r="22" fill="${accent1}" opacity="0.85"/><circle cx="395" cy="180" r="22" fill="${accent2}" opacity="0.85"/>
+                <polygon points="180,295 195,255 210,295" fill="#f97316"/>
+                <polygon points="430,295 445,255 460,295" fill="#f97316"/>`;
+              break;
+            case 'urban':
+              motifSvg = `
+                <rect x="70" y="130" width="90" height="230" rx="4" fill="#020617" opacity="0.55"/>
+                <rect x="470" y="100" width="110" height="260" rx="4" fill="#020617" opacity="0.55"/>
+                <rect x="195" y="255" width="250" height="16" rx="4" fill="${accent1}"/>
+                <rect x="215" y="255" width="32" height="16" fill="#0f172a"/><rect x="275" y="255" width="32" height="16" fill="#0f172a"/>
+                <rect x="335" y="255" width="32" height="16" fill="#0f172a"/><rect x="395" y="255" width="32" height="16" fill="#0f172a"/>
+                <circle cx="320" cy="175" r="46" fill="none" stroke="${accent2}" stroke-width="4" stroke-dasharray="10 6"/>`;
+              break;
+            case 'split':
+              motifSvg = `
+                <polygon points="120,0 285,0 245,360 50,360" fill="${accent1}" opacity="0.22"/>
+                <polygon points="355,0 520,0 590,360 395,360" fill="${accent2}" opacity="0.16"/>
+                <line x1="320" y1="36" x2="320" y2="324" stroke="#ffffff" stroke-width="2" stroke-dasharray="8 8" opacity="0.45"/>
+                <circle cx="210" cy="175" r="48" fill="none" stroke="${accent1}" stroke-width="4"/>
+                <circle cx="430" cy="175" r="48" fill="none" stroke="${accent2}" stroke-width="4" opacity="0.8"/>`;
+              break;
+            case 'studio':
+              motifSvg = `
+                <rect x="165" y="75" width="310" height="190" rx="16" fill="#020617" opacity="0.72" stroke="${accent2}" stroke-width="2"/>
+                <polygon points="295,135 295,205 355,170" fill="${accent1}"/>
+                <path d="M120 300 Q220 260 320 300 T520 300" fill="none" stroke="${accent2}" stroke-width="4" opacity="0.75"/>
+                <circle cx="515" cy="95" r="10" fill="#ef4444"/>`;
+              break;
+            case 'court':
+              motifSvg = `
+                <polygon points="160,120 320,62 480,120" fill="${accent2}" opacity="0.24"/>
+                <rect x="175" y="128" width="290" height="14" fill="${accent2}" opacity="0.4"/>
+                <rect x="195" y="146" width="22" height="145" fill="${accent2}" opacity="0.35"/>
+                <rect x="260" y="146" width="22" height="145" fill="${accent2}" opacity="0.35"/>
+                <rect x="358" y="146" width="22" height="145" fill="${accent2}" opacity="0.35"/>
+                <rect x="423" y="146" width="22" height="145" fill="${accent2}" opacity="0.35"/>
+                <rect x="155" y="295" width="330" height="18" rx="4" fill="${accent1}" opacity="0.55"/>`;
+              break;
+            case 'stage':
+              motifSvg = `
+                <polygon points="170,0 265,360 75,360" fill="${accent1}" opacity="0.22"/>
+                <polygon points="470,0 565,360 375,360" fill="${accent2}" opacity="0.22"/>
+                <ellipse cx="320" cy="290" rx="190" ry="32" fill="${accent1}" opacity="0.28"/>
+                <rect x="315" y="125" width="10" height="150" rx="5" fill="#e2e8f0" opacity="0.8"/>
+                <circle cx="320" cy="118" r="18" fill="${accent2}"/>`;
+              break;
+            case 'campus':
+              motifSvg = `
+                <rect x="120" y="70" width="400" height="220" rx="12" fill="#020617" opacity="0.35" stroke="${accent1}" stroke-width="2"/>
+                <line x1="250" y1="70" x2="250" y2="290" stroke="#ffffff" stroke-width="2" opacity="0.22"/>
+                <line x1="390" y1="70" x2="390" y2="290" stroke="#ffffff" stroke-width="2" opacity="0.22"/>
+                <circle cx="455" cy="135" r="32" fill="${accent2}" opacity="0.8"/>`;
+              break;
+            case 'baseball':
+              motifSvg = `
+                <path d="M130 290 A210 210 0 0 1 510 290 L320 340 Z" fill="${accent1}" opacity="0.3"/>
+                <polygon points="320,160 410,245 320,330 230,245" fill="#92400e" opacity="0.58" stroke="#f8fafc" stroke-width="3"/>
+                <circle cx="170" cy="70" r="16" fill="#ffffff" opacity="0.7"/><circle cx="470" cy="70" r="16" fill="#ffffff" opacity="0.7"/>`;
+              break;
+            case 'stadium':
+              motifSvg = `
+                <ellipse cx="320" cy="210" rx="220" ry="105" fill="${accent1}" opacity="0.26" stroke="${accent2}" stroke-width="3"/>
+                <line x1="320" y1="105" x2="320" y2="315" stroke="#ffffff" stroke-width="2" opacity="0.5"/>
+                <circle cx="320" cy="210" r="44" fill="none" stroke="#ffffff" stroke-width="2" opacity="0.6"/>`;
+              break;
+            case 'cyber':
+              motifSvg = `
+                <rect x="170" y="68" width="80" height="224" rx="8" fill="#090d16" stroke="${accent1}" stroke-width="2"/>
+                <rect x="280" y="68" width="80" height="224" rx="8" fill="#090d16" stroke="${accent2}" stroke-width="2"/>
+                <rect x="390" y="68" width="80" height="224" rx="8" fill="#090d16" stroke="${accent1}" stroke-width="2"/>
+                <circle cx="210" cy="110" r="6" fill="${accent2}"/><circle cx="320" cy="140" r="6" fill="${accent1}"/><circle cx="430" cy="180" r="6" fill="${accent2}"/>`;
+              break;
+            case 'chip':
+              motifSvg = `
+                <rect x="235" y="95" width="170" height="170" rx="18" fill="#090d16" stroke="${accent1}" stroke-width="4"/>
+                <rect x="275" y="135" width="90" height="90" rx="10" fill="url(#g_${uid})"/>
+                <line x1="170" y1="140" x2="235" y2="140" stroke="${accent2}" stroke-width="4"/><line x1="170" y1="220" x2="235" y2="220" stroke="${accent2}" stroke-width="4"/>
+                <line x1="405" y1="140" x2="470" y2="140" stroke="${accent2}" stroke-width="4"/><line x1="405" y1="220" x2="470" y2="220" stroke="${accent2}" stroke-width="4"/>`;
+              break;
+            case 'globe':
+              motifSvg = `
+                <circle cx="320" cy="180" r="105" fill="none" stroke="${accent1}" stroke-width="3" opacity="0.85"/>
+                <ellipse cx="320" cy="180" rx="52" ry="105" fill="none" stroke="${accent2}" stroke-width="2" opacity="0.65"/>
+                <line x1="215" y1="180" x2="425" y2="180" stroke="${accent2}" stroke-width="2" opacity="0.65"/>
+                <line x1="230" y1="130" x2="410" y2="130" stroke="${accent1}" stroke-width="1.5" opacity="0.45"/>
+                <line x1="230" y1="230" x2="410" y2="230" stroke="${accent1}" stroke-width="1.5" opacity="0.45"/>`;
+              break;
+            default:
+              motifSvg = `
+                <circle cx="320" cy="180" r="95" fill="none" stroke="${accent1}" stroke-width="3" opacity="0.7"/>
+                <circle cx="320" cy="180" r="56" fill="none" stroke="${accent2}" stroke-width="3" opacity="0.85"/>
+                <circle cx="320" cy="180" r="16" fill="#ffffff" opacity="0.9"/>
+                <circle cx="215" cy="120" r="12" fill="${accent2}"/><circle cx="435" cy="235" r="12" fill="${accent1}"/>`;
+          }
+
+          const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360">
+            <defs>
+              <linearGradient id="g_${uid}" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="${bg1}"/>
+                <stop offset="55%" stop-color="${bg2}"/>
+                <stop offset="100%" stop-color="${accent1}" stop-opacity="0.65"/>
+              </linearGradient>
+              <pattern id="grid_${uid}" width="32" height="32" patternUnits="userSpaceOnUse">
+                <path d="M 32 0 L 0 0 0 32" fill="none" stroke="#ffffff" stroke-opacity="0.06" stroke-width="1"/>
+              </pattern>
+            </defs>
+            <rect width="640" height="360" fill="url(#g_${uid})"/>
+            <rect width="640" height="360" fill="url(#grid_${uid})"/>
+            ${motifSvg}
+          </svg>`;
+
+          return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+        }
+
+        function resolveTopicMedia(category, title, subtitle, tags, usedCounts) {
+          const titleLower = String(title || '').toLowerCase();
+          const contextLower = `${subtitle || ''} ${(tags || []).join(' ')}`.toLowerCase();
+          const tHash = quickHash(title || '');
+
+          let best = TOPIC_PROFILES[0];
+          let bestScore = -Infinity;
+          let matchedKw = '';
+
+          for (let i = 0; i < TOPIC_PROFILES.length; i++) {
+            const p = TOPIC_PROFILES[i];
+            let score = 0;
+            let firstKw = '';
+            for (const kw of p.keywords) {
+              const kl = kw.toLowerCase();
+              if (titleLower.includes(kl)) {
+                score += 18;
+                if (!firstKw) firstKw = kw;
+              } else if (contextLower.includes(kl)) {
+                score += 7;
+                if (!firstKw) firstKw = kw;
+              }
+            }
+            if (p.categories.includes(category)) {
+              score += p.categories[0] === category ? 8 : 4;
+            }
+            const used = usedCounts ? usedCounts.get(p.id) || 0 : 0;
+            score -= used * 14;
+            score += ((tHash + i * 7) % 100) / 1000;
+
+            if (score > bestScore) {
+              bestScore = score;
+              best = p;
+              matchedKw = firstKw;
+            }
+          }
+
+          if (usedCounts) {
+            usedCounts.set(best.id, (usedCounts.get(best.id) || 0) + 1);
+          }
+
+          const shortTitle = title.length > 32 ? title.slice(0, 32).trim() + '…' : title;
+          return {
+            coverImage: buildTopicSvgDataUri(best, title),
+            coverAlt: matchedKw
+              ? `${best.altSubject} (${matchedKw} · ${shortTitle})`
+              : `${best.altSubject} (${shortTitle})`,
+          };
+        }
+
+        // =========================================================
+        // 4. Built-in Curated Sample Dataset (Fallback & Initial)
+        // =========================================================
+        const now = Date.now();
+        const RAW_SAMPLE_ISSUES = [
+          {
+            id: 'issue-ent-couple-divorce-sample',
+            title: '연예·래퍼 부부 파경 및 원만한 합의 이혼 발표·루머 팩트체크',
+            subtitle: '결혼 직후 불거진 각종 추측성 루머 속 당사자들의 공식 합의 이혼 입장 발표와 확인된 사실을 구분해 정리합니다.',
+            category: 'controversy',
+            scope: 'domestic',
+            regionLabel: '국내 · 논란',
+            status: 'statement_released',
+            isFeaturedToday: true,
+            isTrending: true,
+            isNewDiscovery: true,
+            isBreaking: true,
+            heatIndex: 96,
+            publishedTimestamp: now - 25 * 60 * 1000,
+            tags: ['합의이혼', '공식입장', '루머팩트체크', '논란'],
+            summary30s: [
+              '유명 래퍼·인플루언서 부부가 최근 원만한 협의 끝에 이혼 절차를 밟고 있다는 보도가 잇따르며 큰 화제를 모았습니다.',
+              '온라인 커뮤니티에서는 결별 배경을 둘러싼 미확인 추측이 빠르게 퍼졌으나, 양측은 상호 합의에 따른 결정임을 밝혔습니다.',
+              '당사자 공식 입장 외의 익명 게시물 및 억측성 루머는 사실 확인이 되지 않은 주장으로 주의가 필요합니다.',
+            ],
+            background: {
+              overview: '대중의 주목을 받는 인물 간 결혼·이혼 이슈는 짧은 SNS 문구나 지인 발 추측이 확대 재생산되는 경향이 강해 공식 발표와 미확인 루머를 분리해 보는 것이 중요합니다.',
+              keyTerms: [
+                { term: '협의이혼', meaning: '부부 양측이 이혼과 재산·양육 조건 등에 원만히 합의해 법원의 확인을 거쳐 진행하는 절차.' },
+              ],
+            },
+            timeline: [
+              { id: 't1', dateLabel: '1단계', stage: '보도 확산', title: '부부 결별·이혼 절차 진행 소식 보도', description: '복수 매체를 통해 원만한 합의 이혼 추진 소식이 전해졌습니다.', sourceLabel: '샘플 브리핑' },
+              { id: 't2', dateLabel: '2단계', stage: '입장 확인', title: '상호 협의 및 사생활 억측 자제 요청', description: '불필요한 2차 추측 자제를 당부하는 입장이 공유되었습니다.', sourceLabel: '샘플 브리핑' },
+            ],
+            verifiedFacts: [
+              { id: 'vf1', statement: '양측이 원만한 협의를 거쳐 각자의 길을 가기로 했다는 점이 복수 보도를 통해 확인되었습니다.', basis: '공식 입장 및 보도 요약(샘플)' },
+            ],
+            unverifiedClaims: [
+              { id: 'uc1', claim: '커뮤니티에 올라온 구체적 파경 사유 및 금전 갈등 추측글', context: '당사자 확인이 없는 익명 추측성 게시글입니다.' },
+            ],
+            officialStatements: [
+              { id: 'os1', speaker: '당사자 측 관계자', role: '공식 입장 요약', dateLabel: '샘플 브리핑', summary: '“서로 원만한 합의를 통해 결정한 사안이며, 확인되지 않은 추측성 보도는 자제해 주시길 바랍니다.”' },
+            ],
+            sources: [{ id: 's1', title: '[샘플] 합의 이혼 공식 입장 및 루머 팩트체크', publisher: 'IssuePulse 샘플', url: '#sample', publishedAt: '샘플 데이터', isSamplePlaceholder: true }],
+          },
+          {
+            id: 'issue-highway-multi-crash-sample',
+            title: '고속도로 다중 추돌 및 야간 빙판길 연쇄 사고 인명피해 현황',
+            subtitle: '결빙 구간에서 발생한 연쇄 추돌 사고의 인명피해 규모, 통제 우회 도로, 경찰·소방 현장 대응 경위를 정리합니다.',
+            category: 'fatal_accident',
+            scope: 'domestic',
+            regionLabel: '국내 · 인명사고',
+            status: 'investigating',
+            isFeaturedToday: false,
+            isTrending: true,
+            isNewDiscovery: true,
+            isBreaking: true,
+            heatIndex: 95,
+            publishedTimestamp: now - 42 * 60 * 1000,
+            tags: ['인명사고', '다중추돌', '교통사고', '도로통제'],
+            summary30s: [
+              '간선 고속도로 하행선 구간에서 승용차와 화물차 등이 얽힌 다중 추돌 사고가 발생해 사상자가 확인됐습니다.',
+              '관할 소방서와 고속도로순찰대가 즉시 차로를 통제하고 구조·이송 작업을 진행했습니다.',
+              '경찰은 블랙박스와 노면 결빙 여부, 안전거리 확보 여부를 중심으로 정확한 사고 경위를 조사 중입니다.',
+            ],
+            background: {
+              overview: '기온 급강하로 교량 위나 터널 출구부에 생기는 블랙아이스(도로 살얼음) 구간에서는 연쇄 추돌 위험이 급격히 높아집니다.',
+              keyTerms: [{ term: '블랙아이스', meaning: '도로 표면의 물기가 얇고 투명한 얼음 막으로 변해 육안으로 식별하기 어려운 결빙 현상.' }],
+            },
+            timeline: [
+              { id: 't1', dateLabel: '발생 직후', stage: '현장 출동', title: '119 구급대 구조 및 양방향 일부 차로 통제', description: '부상자 인근 병원 분산 이송 및 견인 작업 진행.', sourceLabel: '소방·경찰 브리핑(샘플)' },
+            ],
+            verifiedFacts: [{ id: 'vf1', statement: '경찰과 도로공사가 사고 지점 전방 우회 안내 및 노면 제설·염화칼슘 살포를 실시했습니다.', basis: '현장 통제 발표(샘플)' }],
+            unverifiedClaims: [{ id: 'uc1', claim: '사고 원인이 특정 차량의 고의 급제동이라는 SNS 목격담', context: '정식 블랙박스 감식 전까지 확인되지 않았습니다.' }],
+            officialStatements: [{ id: 'os1', speaker: '고속도로순찰대', role: '현장 브리핑', dateLabel: '샘플', summary: '“정확한 추돌 순서와 노면 결빙 영향을 조사 중이며 우회 도로 이용을 안내하고 있습니다.”' }],
+            sources: [{ id: 's1', title: '[샘플] 고속도로 연쇄 추돌 사고 통제 및 조사 현황', publisher: '안전브리핑(샘플)', url: '#sample', publishedAt: '샘플 데이터', isSamplePlaceholder: true }],
+          },
+          {
+            id: 'issue-apartment-fire-sample',
+            title: '공동주택 지하주차장 화재 발생 및 스프링클러 작동 여부 감식',
+            subtitle: '심야 차량 발화로 입주민 수백 명이 대피한 아파트 화재의 초기 진압 경위와 소방 합동 감식 쟁점을 정리합니다.',
+            category: 'fatal_accident',
+            scope: 'domestic',
+            regionLabel: '국내 · 인명사고',
+            status: 'investigating',
+            isFeaturedToday: false,
+            isTrending: true,
+            isNewDiscovery: false,
+            isBreaking: false,
+            heatIndex: 91,
+            publishedTimestamp: now - 95 * 60 * 1000,
+            tags: ['화재', '인명사고', '스프링클러', '소방감식'],
+            summary30s: [
+              '대단지 아파트 지하주차장에서 차량 화재가 발생해 연기가 계단실을 타고 번지며 입주민 대피 소동이 빚어졌습니다.',
+              '초기 진압 과정에서 스프링클러 밸브 작동 여부가 핵심 쟁점으로 떠올라 소방·국과수 합동 감식이 진행됐습니다.',
+              '지자체와 소방본부는 공동주택 지하주차장 소방설비 불시 점검을 확대하겠다고 밝혔습니다.',
+            ],
+            background: { overview: '밀폐된 지하공간 화재는 유독가스 확산이 빨라 자동소화설비 정상 연동 여부가 인명피해 규모를 좌우합니다.', keyTerms: [] },
+            timeline: [{ id: 't1', dateLabel: '합동 감식', stage: '원인 규명', title: '방재실 수신기 로그 및 발화 차량 정밀 분석', description: '연동 정지 조작 여부를 확인 중입니다.', sourceLabel: '소방당국(샘플)' }],
+            verifiedFacts: [{ id: 'vf1', statement: '관할 소방서와 경찰, 국과수가 공동 감식을 실시했습니다.', basis: '소방본부 브리핑(샘플)' }],
+            unverifiedClaims: [],
+            officialStatements: [{ id: 'os1', speaker: '소방본부 예방안전과', role: '점검 안내', dateLabel: '샘플', summary: '“스프링클러 연동 차단 행위는 중대 위법 사항으로 전수 점검을 확대합니다.”' }],
+            sources: [{ id: 's1', title: '[샘플] 지하주차장 화재 합동 감식 결과 안내', publisher: 'IssuePulse 샘플', url: '#sample', publishedAt: '샘플 데이터', isSamplePlaceholder: true }],
+          },
+          {
+            id: 'issue-kbo-stove-league-sample',
+            title: 'KBO 스토브리그 FA 협상 교착과 ‘타 구단 거액 오퍼설’ 언플 팩트체크',
+            subtitle: '비시즌 FA 시장에서 구단과 에이전트 간 신경전이 치열한 가운데 협상용 언론플레이와 공식 계약 현황을 구분합니다.',
+            category: 'sports',
+            scope: 'domestic',
+            regionLabel: '스포츠 · 스토브리그',
+            status: 'ongoing',
+            isFeaturedToday: false,
+            isTrending: true,
+            isNewDiscovery: false,
+            isBreaking: false,
+            heatIndex: 93,
+            publishedTimestamp: now - 70 * 60 * 1000,
+            tags: ['스토브리그', 'KBO', 'FA협상', '언플팩트체크'],
+            summary30s: [
+              '스토브리그 핵심 FA 선수를 두고 ‘타 구단 거액 제시설’과 ‘원소속팀 최종안 통보설’이 하루 간격으로 엇갈려 보도됐습니다.',
+              '구단들은 경쟁균형세(샐러리캡) 상한 부담을, 에이전트는 복수 구단 경쟁 구도를 강조하는 전형적 협상용 언플 양상입니다.',
+              'KBO 공시 및 구단 공식 발표 전까지 구체적 총액·기간 확정 보도는 확인이 필요합니다.',
+            ],
+            background: { overview: '비시즌 스토브리그에는 협상 주도권을 잡기 위한 익명 관계자발 보도가 빈번합니다.', keyTerms: [{ term: '경쟁균형세', meaning: '팀 연봉 총액 상한선을 두어 구단 간 전력 쏠림을 방지하는 KBO 제도.' }] },
+            timeline: [{ id: 't1', dateLabel: '협상 중', stage: '조건 조율', title: '보장액 비중 및 인센티브 옵션 세부 조율', description: '원소속팀 잔류 vs 이적 기로에 서 있습니다.', sourceLabel: '스포츠 데스크(샘플)' }],
+            verifiedFacts: [{ id: 'vf1', statement: '해당 구단은 아직 공식 FA 계약 체결을 발표하지 않았습니다.', basis: 'KBO 공시 확인(샘플)' }],
+            unverifiedClaims: [{ id: 'uc1', claim: '특정 구단이 이미 100억 원대 계약서 날인을 마쳤다는 지라시', context: '공식 발표 전 추정 루머입니다.' }],
+            officialStatements: [{ id: 'os1', speaker: '구단 단장', role: '공식 코멘트', dateLabel: '샘플', summary: '“샐러리캡 기준선 내에서 합리적인 조건으로 대화를 이어가고 있습니다.”' }],
+            sources: [{ id: 's1', title: '[샘플] KBO 스토브리그 FA 협상 현황과 샐러리캡 변수', publisher: '스포츠 브리핑(샘플)', url: '#sample', publishedAt: '샘플 데이터', isSamplePlaceholder: true }],
+          },
+          {
+            id: 'issue-ent-contract-sample',
+            title: '연예계 전속계약 분쟁·정산 갈등 및 제3자 개입 의혹 팩트체크',
+            subtitle: '아티스트의 계약 해지 요구와 소속사의 배후 세력 의혹 제기가 맞서는 가운데 양측 공식 입장문을 비교합니다.',
+            category: 'entertainment',
+            scope: 'domestic',
+            regionLabel: '국내 · 연예',
+            status: 'statement_released',
+            isFeaturedToday: false,
+            isTrending: true,
+            isNewDiscovery: true,
+            isBreaking: false,
+            heatIndex: 90,
+            publishedTimestamp: now - 120 * 60 * 1000,
+            tags: ['연예', '전속계약', '소속사분쟁', '공식입장'],
+            summary30s: [
+              '인기 아티스트 측이 정산 자료 미제공을 이유로 전속계약 효력정지 가처분을 신청하며 법적 공방이 시작됐습니다.',
+              '소속사는 외부 기획사 접촉(템퍼링) 의혹을 제기하며 즉각 반박 입장문을 냈습니다.',
+              '법원 심문 기일 전까지 커뮤니티에 퍼지는 익명 폭로는 공식 확인이 필요합니다.',
+            ],
+            background: { overview: '연예계 전속계약 분쟁은 대중적 관심이 커 가처분 신청 직후 2차 루머가 빠르게 확산됩니다.', keyTerms: [] },
+            timeline: [{ id: 't1', dateLabel: '제기', stage: '가처분 신청', title: '아티스트 측 법률대리인 법원 서류 접수', description: '소속사는 정상 정산 입장을 반박 배포했습니다.', sourceLabel: '공식 보도자료(샘플)' }],
+            verifiedFacts: [{ id: 'vf1', statement: '양측이 상반된 공식 보도자료를 배포하고 법적 절차에 돌입했습니다.', basis: '입장문 원문 비교(샘플)' }],
+            unverifiedClaims: [],
+            officialStatements: [],
+            sources: [{ id: 's1', title: '[샘플] 전속계약 분쟁 양측 공식 입장 비교', publisher: '엔터 브리핑(샘플)', url: '#sample', publishedAt: '샘플 데이터', isSamplePlaceholder: true }],
+          },
+          {
+            id: 'issue-ai-security-sample',
+            title: '대학·기업 웹 보안 취약점 및 AI 기반 피싱·개인정보 유출 경보',
+            subtitle: '자동화된 AI 해킹 툴 악용 사례가 늘면서 국내 기관들의 보안 점검 및 무상 웹 방화벽 지원 움직임을 정리합니다.',
+            category: 'tech_economy',
+            scope: 'domestic',
+            regionLabel: '테크·보안·AI',
+            status: 'ongoing',
+            isFeaturedToday: false,
+            isTrending: false,
+            isNewDiscovery: true,
+            isBreaking: false,
+            heatIndex: 86,
+            publishedTimestamp: now - 160 * 60 * 1000,
+            tags: ['AI보안', '해킹', '개인정보유출', '테크'],
+            summary30s: [
+              '생성형 AI를 악용한 취약점 스캐닝과 정교한 피싱 공격이 국내 대학·중소 플랫폼을 겨냥해 증가하고 있습니다.',
+              '보안 기업과 관계 기관이 웹 보안 진단 및 긴급 패치 지원을 확대하고 있습니다.',
+              '이용자는 공지된 비밀번호 변경 및 2단계 인증 활성화를 점검할 필요가 있습니다.',
+            ],
+            background: { overview: 'AI 자동화 공격이 고도화되면서 단일 계정 탈취가 연쇄 유출로 이어질 위험이 커졌습니다.', keyTerms: [] },
+            timeline: [{ id: 't1', dateLabel: '최근', stage: '대응 확대', title: '주요 대학·기관 웹 보안 무료 지원 확대 발표', description: '실시간 공격 탐지 체계가 강화되고 있습니다.', sourceLabel: '보안 브리핑(샘플)' }],
+            verifiedFacts: [{ id: 'vf1', statement: '보안 업계가 교육·공공 기관 대상 무상 웹 보안 솔루션을 확대 제공하고 있습니다.', basis: '공식 발표(샘플)' }],
+            unverifiedClaims: [],
+            officialStatements: [],
+            sources: [{ id: 's1', title: '[샘플] AI 시대 웹 보안 위협과 대응 가이드', publisher: '테크와이어(샘플)', url: '#sample', publishedAt: '샘플 데이터', isSamplePlaceholder: true }],
+          },
+          {
+            id: 'issue-court-investigate-sample',
+            title: '대형 플랫폼·기관 수사 대응 전담팀 확대 및 주요 법원 판결 동향',
+            subtitle: '경찰·검찰 수사 절차 변화와 기업·개인 대상 주요 판결 이슈의 핵심 법적 포인트를 요약합니다.',
+            category: 'society_culture',
+            scope: 'domestic',
+            regionLabel: '국내 · 사회',
+            status: 'ongoing',
+            isFeaturedToday: false,
+            isTrending: false,
+            isNewDiscovery: false,
+            heatIndex: 82,
+            publishedTimestamp: now - 210 * 60 * 1000,
+            tags: ['경찰수사', '법원판결', '사회', '법률'],
+            summary30s: [
+              '디지털 포렌식과 온라인 명예훼손·사이버 사건 비중이 늘며 수사 대응과 법적 쟁점이 세분화되고 있습니다.',
+              '주요 로펌과 기관들은 전담 팀을 보강해 초기 수사 단계 대응력을 높이는 추세입니다.',
+              '향후 판례 변화가 온라인 커뮤니티·미디어 분쟁 기준에도 영향을 줄 전망입니다.',
+            ],
+            background: { overview: '디지털 증거 확보가 수사의 핵심이 되면서 초기 대응 절차의 중요성이 커지고 있습니다.', keyTerms: [] },
+            timeline: [],
+            verifiedFacts: [{ id: 'vf1', statement: '온라인 사건·디지털 포렌식 전담 조직 강화 움직임이 이어지고 있습니다.', basis: '법조계 동향(샘플)' }],
+            unverifiedClaims: [],
+            officialStatements: [],
+            sources: [{ id: 's1', title: '[샘플] 디지털 수사 및 주요 판결 동향 정리', publisher: '사회 데스크(샘플)', url: '#sample', publishedAt: '샘플 데이터', isSamplePlaceholder: true }],
+          },
+          {
+            id: 'issue-global-diplomacy-sample',
+            title: '미·북 외교 시그널 및 글로벌 관세·통상 압박 한국 시장 파장',
+            subtitle: '미국 행정부 대외 메시지 이후 한반도 외교 정세와 국내 수출·환율 시장에 미치는 영향을 짚어봅니다.',
+            category: 'global',
+            scope: 'global',
+            regionLabel: '글로벌 주요 이슈',
+            status: 'ongoing',
+            isFeaturedToday: false,
+            isTrending: true,
+            isNewDiscovery: false,
+            isBreaking: false,
+            heatIndex: 89,
+            publishedTimestamp: now - 140 * 60 * 1000,
+            tags: ['글로벌', '외교', '관세', '환율'],
+            summary30s: [
+              '미국 정가의 대북 대화 재개 가능성 언급과 통상 관세 발언이 동시에 나오며 동북아 외교·경제 시장의 관심이 쏠렸습니다.',
+              '외교 당국은 한미 공조 체제 하에 발언 진의와 실제 정책 반영 여부를 면밀히 모니터링 중입니다.',
+              '국내 증시와 원/달러 환율 변동성이 커질 수 있어 공식 협상 일정을 주시해야 합니다.',
+            ],
+            background: { overview: '미국의 대외 통상·안보 메시지는 즉각적으로 한국 수출기업과 외환시장 심리에 반영됩니다.', keyTerms: [] },
+            timeline: [{ id: 't1', dateLabel: '최근', stage: '메시지 공개', title: '미국 정가 외교 발언 이후 각국 반응 주목', description: '통상 및 안보 라인의 후속 조율 여부가 관건입니다.', sourceLabel: '글로벌 데스크(샘플)' }],
+            verifiedFacts: [{ id: 'vf1', statement: '한국 외교·통상 당국은 관련 발언에 대해 우방국과 긴밀히 소통 중이라고 밝혔습니다.', basis: '정부 브리핑(샘플)' }],
+            unverifiedClaims: [],
+            officialStatements: [],
+            sources: [{ id: 's1', title: '[샘플] 글로벌 외교·관세 변수와 한국 경제 영향', publisher: 'Global Brief(샘플)', url: '#sample', publishedAt: '샘플 데이터', isSamplePlaceholder: true }],
+          },
+        ];
+
+        function computeMetrics(id, heatIndex, sourceCount) {
+          const h = quickHash(id);
+          return {
+            viewCount: Math.max(150, (heatIndex - 55) * 310 + sourceCount * 380 + (h % 2400)),
+            followCount: Math.max(22, Math.round((heatIndex - 58) * 17 + sourceCount * 32 + ((h >> 4) % 300))),
+          };
+        }
+
+        function hydrateMediaAndMetrics(list) {
+          const used = new Map();
+          const metricsMap = safeStorage.get(STORAGE_KEYS.METRICS, {});
+          return list.map((item) => {
+            const media = resolveTopicMedia(item.category, item.title, item.subtitle, item.tags, used);
+            const base = computeMetrics(item.id, item.heatIndex, (item.sources || []).length);
+            const delta = metricsMap[item.id] || { views: 0, follows: 0 };
+            return {
+              ...item,
+              coverImage: media.coverImage,
+              coverAlt: media.coverAlt,
+              viewCount: Math.max(0, (item.viewCount ?? base.viewCount) + (delta.views || 0)),
+              followCount: Math.max(0, (item.followCount ?? base.followCount) + (delta.follows || 0)),
+              updatedAt: item.publishedTimestamp ? formatRelativeTime(item.publishedTimestamp) : item.updatedAt,
+            };
+          });
+        }
+
+        function formatRelativeTime(ts) {
+          if (!ts) return '최근 수집';
+          const diffMin = Math.max(1, Math.floor((Date.now() - ts) / 60000));
+          if (diffMin < 60) return `${diffMin}분 전`;
+          const diffHr = Math.floor(diffMin / 60);
+          if (diffHr < 24) return `${diffHr}시간 전`;
+          return `${Math.floor(diffHr / 24)}일 전`;
+        }
+
+        // =========================================================
+        // 5. Client-Side Live RSS Collector (CORS Bridge + Same-Origin fallback)
+        // =========================================================
+        const RSS_QUERIES = [
+          {
+            category: 'controversy',
+            scope: 'domestic',
+            q: '(이혼 OR 결별 OR 파경 OR 폭로 OR 사과문 OR 갑질) (래퍼 OR 가수 OR 배우 OR 유튜버 OR 인플루언서) when:2d',
+          },
+          {
+            category: 'controversy',
+            scope: 'domestic',
+            q: '(논란 OR 사과문 OR 해명 OR 갑질) when:1d',
+          },
+          {
+            category: 'fatal_accident',
+            scope: 'domestic',
+            q: '(화재 사망 OR 교통사고 사망 OR 다중 추돌 OR 붕괴 사망) when:2d',
+          },
+          {
+            category: 'sports',
+            scope: 'domestic',
+            q: '(스토브리그 OR FA 협상 OR 프로야구 OR 손흥민) (계약 OR 논란 OR 이적) when:3d',
+          },
+          {
+            category: 'tech_economy',
+            scope: 'domestic',
+            q: '(AI 논란 OR 개인정보 유출 OR 해킹 OR 엔비디아 OR 젠슨황) when:3d',
+          },
+          {
+            category: 'global',
+            scope: 'global',
+            url: 'https://news.google.com/rss/headlines/section/topic/WORLD?hl=ko&gl=KR&ceid=KR:ko',
+          },
+        ];
+
+        function buildGoogleRssUrl(feed) {
+          if (feed.url) return feed.url;
+          return `https://news.google.com/rss/search?q=${encodeURIComponent(feed.q)}&hl=ko&gl=KR&ceid=KR:ko`;
+        }
+
+        function cleanHeadline(raw) {
+          const idx = String(raw || '').lastIndexOf(' - ');
+          if (idx > 0) {
+            return { headline: raw.slice(0, idx).trim(), publisher: raw.slice(idx + 3).trim() };
+          }
+          return { headline: String(raw || '').trim(), publisher: '언론사' };
+        }
+
+        function inferStatus(headline) {
+          if (/조사|경찰|검찰|수사|압수수색|감식/.test(headline)) return 'investigating';
+          if (/입장|사과|해명|발표|공식|부인|반박/.test(headline)) return 'statement_released';
+          if (/선고|합의|계약|체결|타결|종료/.test(headline)) return 'resolved';
+          return 'ongoing';
+        }
+
+        async function fetchViaCorsRss(feedUrl) {
+          // 1) Try rss2json (clean JSON with CORS)
+          try {
+            const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
+            const res = await fetch(apiUrl, { signal: AbortSignal.timeout(7000) });
+            if (res.ok) {
+              const data = await res.json();
+              if (data.status === 'ok' && Array.isArray(data.items) && data.items.length > 0) {
+                return data.items.map((it) => ({
+                  rawTitle: it.title || '',
+                  link: it.link || '',
+                  pubDate: it.pubDate || '',
+                  author: it.author || '',
+                }));
+              }
+            }
+          } catch (_) {}
+
+          // 2) Fallback: allorigins XML proxy
+          try {
+            const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(feedUrl)}`;
+            const res = await fetch(proxyUrl, { signal: AbortSignal.timeout(7000) });
+            if (res.ok) {
+              const xmlText = await res.text();
+              const doc = new DOMParser().parseFromString(xmlText, 'text/xml');
+              const items = Array.from(doc.querySelectorAll('item')).slice(0, 8);
+              return items.map((el) => ({
+                rawTitle: el.querySelector('title')?.textContent || '',
+                link: el.querySelector('link')?.textContent || '',
+                pubDate: el.querySelector('pubDate')?.textContent || '',
+                author: el.querySelector('source')?.textContent || '',
+              }));
+            }
+          } catch (_) {}
+
+          return [];
+        }
+
+        async function fetchLiveFeeds(customQuery) {
+          // If served on same origin HTTP(S), try backend API first (automatically skipped on file:// or static Vercel)
+          if (window.location.protocol !== 'file:') {
+            try {
+              const endpoint = customQuery
+                ? `/api/issues/search-live?q=${encodeURIComponent(customQuery)}`
+                : '/api/issues';
+              const res = await fetch(endpoint, { signal: AbortSignal.timeout(4500) });
+              const ctype = res.headers.get('content-type') || '';
+              if (res.ok && ctype.includes('application/json')) {
+                const payload = await res.json();
+                const list = customQuery ? payload.issues : payload.liveIssues;
+                if (Array.isArray(list) && list.length > 0) {
+                  return {
+                    issues: list,
+                    originLabel: '실시간 RSS 서버 수집',
+                  };
+                }
+              }
+            } catch (_) {}
+          }
+
+          const targetFeeds = customQuery
+            ? [{ category: 'controversy', scope: 'domestic', q: `${customQuery} when:7d` }]
+            : RSS_QUERIES;
+
+          const results = await Promise.allSettled(
+            targetFeeds.map(async (feed) => {
+              const items = await fetchViaCorsRss(buildGoogleRssUrl(feed));
+              return { feed, items };
+            })
+          );
+
+          const collected = [];
+          const seenHeadlines = new Set();
+
+          for (const r of results) {
+            if (r.status !== 'fulfilled') continue;
+            const { feed, items } = r.value;
+            const sorted = items
+              .map((it) => ({ ...it, pubMs: Date.parse(it.pubDate) || Date.now() }))
+              .sort((a, b) => b.pubMs - a.pubMs)
+              .slice(0, customQuery ? 6 : 4);
+
+            sorted.forEach((it, idx) => {
+              const { headline, publisher } = cleanHeadline(it.rawTitle);
+              if (!headline || seenHeadlines.has(headline)) return;
+              seenHeadlines.add(headline);
+              const pubName = it.author || publisher;
+              const auto = classifyIssueCategory(headline, feed.category);
+              const cat = auto.primaryCategory;
+              const ageHrs = Math.max(0, (Date.now() - it.pubMs) / 3600000);
+              const isBreaking = ageHrs <= 2.5 || headline.includes('속보');
+              const heatIndex = Math.min(99, Math.max(72, 85 - idx * 2 + (ageHrs <= 3 ? 8 : 2)));
+              const id = `rss-${cat}-${quickHash(headline + it.link)}`;
+
+              collected.push({
+                id,
+                title: headline,
+                subtitle: `${pubName}에서 보도한 실시간 자동 수집 이슈입니다.`,
+                category: cat,
+                scope: feed.scope === 'global' || cat === 'global' ? 'global' : 'domestic',
+                regionLabel: cat === 'global' ? '글로벌 주요 이슈' : `국내 · ${CATEGORY_LABELS[cat]}`,
+                status: inferStatus(headline),
+                isFeaturedToday: idx === 0 && (cat === 'controversy' || cat === 'fatal_accident'),
+                isTrending: idx === 0 || isBreaking,
+                isNewDiscovery: ageHrs <= 8 || idx === 1,
+                isBreaking,
+                heatIndex,
+                publishedTimestamp: it.pubMs,
+                tags: Array.from(new Set([CATEGORY_LABELS[cat], ...auto.matchedKeywords])).slice(0, 4),
+                summary30s: [
+                  `[${pubName}] ${headline}`,
+                  'Google News KR 실시간 RSS 피드를 통해 자동으로 수집 및 분류된 최신 기사입니다.',
+                  '하단 원문 출처 링크를 통해 해당 언론사의 전체 보도 내용을 바로 확인할 수 있습니다.',
+                ],
+                background: {
+                  overview: '브라우저에서 실시간 RSS 피드를 직접 조회해 키워드 자동 분류를 거친 이슈입니다.',
+                  keyTerms: [],
+                },
+                timeline: [
+                  {
+                    id: `tl-${id}`,
+                    dateLabel: formatRelativeTime(it.pubMs),
+                    stage: '실시간 수집',
+                    title: headline,
+                    description: `${pubName} 보도 항목`,
+                    sourceLabel: pubName,
+                  },
+                ],
+                verifiedFacts: [
+                  { id: `vf-${id}`, statement: `${pubName}에서 해당 내용을 보도했습니다.`, basis: '실시간 RSS 헤드라인 확인' },
+                ],
+                unverifiedClaims: [],
+                officialStatements: [],
+                sources: [
+                  {
+                    id: `src-${id}`,
+                    title: headline,
+                    publisher: pubName,
+                    url: it.link,
+                    publishedAt: formatRelativeTime(it.pubMs),
+                    isSamplePlaceholder: false,
+                  },
+                ],
+                isSampleData: false,
+                dataOrigin: 'live_rss',
+                autoClassified: auto,
+              });
+            });
+          }
+
+          return {
+            issues: collected.sort((a, b) => b.heatIndex - a.heatIndex || b.publishedTimestamp - a.publishedTimestamp),
+            originLabel: '실시간 브라우저 RSS 수집',
+          };
+        }
+
+        // =========================================================
+        // 6. Application State
+        // =========================================================
+        const state = {
+          route: parseHash(window.location.hash),
+          previousRoute: { name: 'home' },
+          selectedCategory: 'all',
+          sortMode: 'heat',
+          exploreQuery: '',
+          exploreCategory: 'all',
+          exploreScope: 'all',
+          savedTab: 'followed',
+          refreshing: false,
+          searchingLive: false,
+          liveIssues: safeStorage.get(STORAGE_KEYS.CACHED_LIVE, []),
+          customIssues: safeStorage.get(STORAGE_KEYS.CUSTOM_ISSUES, RAW_SAMPLE_ISSUES),
+          followedIds: safeStorage.get(STORAGE_KEYS.FOLLOWED, ['issue-ent-couple-divorce-sample', 'issue-kbo-stove-league-sample']),
+          bookmarkedIds: safeStorage.get(STORAGE_KEYS.BOOKMARKED, []),
+          recentSearches: safeStorage.get(STORAGE_KEYS.SEARCHES, ['이혼', '화재', '교통사고', '스토브리그', '젠슨황']),
+          prefs: safeStorage.get(STORAGE_KEYS.PREFS, {
+            displayName: '이슈 독자',
+            theme: 'light',
+            preferredCategories: ['controversy', 'fatal_accident', 'entertainment', 'sports', 'tech_economy', 'global'],
+            notifications: { followUpdates: true, breakingIncidents: true, dailyBriefing: false },
+          }),
+          syncInfo: {
+            lastCheckedAt: null,
+            nextCheckAt: Date.now() + HOURLY_INTERVAL_MS,
+            lastNewCount: 0,
+            hasNewUpdates: false,
+            liveCount: 0,
+            modeLabel: '내장 브리핑 대기',
+          },
+          qaMessagesByIssue: {},
+          showAdminForm: false,
+          timelineTargetId: null,
+        };
+
+        function parseHash(hash) {
+          const clean = String(hash || '').replace(/^#/, '');
+          if (!clean || clean === 'home') return { name: 'home' };
+          if (clean === 'explore') return { name: 'explore' };
+          if (clean === 'saved') return { name: 'saved' };
+          if (clean === 'mypage') return { name: 'mypage' };
+          if (clean === 'admin') return { name: 'admin' };
+          if (clean.startsWith('issue/')) return { name: 'detail', issueId: clean.slice(6) };
+          return { name: 'home' };
+        }
+
+        function navigate(next) {
+          if (next.name === 'detail' && state.route.name !== 'detail') {
+            state.previousRoute = state.route;
+          }
+          state.route = next;
+          const hash = next.name === 'detail' ? `#issue/${next.issueId}` : `#${next.name}`;
+          if (window.location.hash !== hash) window.location.hash = hash;
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          render();
+        }
+
+        function getAllIssues() {
+          const live = hydrateMediaAndMetrics(state.liveIssues || []);
+          const seen = new Set(live.map((i) => i.id));
+          const samples = hydrateMediaAndMetrics(state.customIssues || []).filter((i) => !seen.has(i.id));
+          return [...live, ...samples];
+        }
+
+        function sortIssues(list, mode) {
+          return [...list].sort((a, b) => {
+            if (mode === 'latest') return (b.publishedTimestamp || 0) - (a.publishedTimestamp || 0) || b.heatIndex - a.heatIndex;
+            if (mode === 'views') return (b.viewCount || 0) - (a.viewCount || 0) || b.heatIndex - a.heatIndex;
+            if (mode === 'follows') return (b.followCount || 0) - (a.followCount || 0) || b.heatIndex - a.heatIndex;
+            return b.heatIndex - a.heatIndex;
+          });
+        }
+
+        function matchesCategory(issue, cat) {
+          if (cat === 'all') return true;
+          return (
+            issue.category === cat ||
+            Boolean(issue.autoClassified && (issue.autoClassified.secondaryCategories || []).includes(cat)) ||
+            (cat === 'global' && issue.scope === 'global')
+          );
+        }
+
+        function esc(str) {
+          return String(str ?? '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+        }
+
+        function formatNum(n) {
+          const v = Math.max(0, Math.round(n || 0));
+          if (v >= 10000) return (v / 10000).toFixed(1).replace(/\.0$/, '') + '만';
+          if (v >= 1000) return (v / 1000).toFixed(1).replace(/\.0$/, '') + '천';
+          return v.toLocaleString('ko-KR');
+        }
+
+        function formatTime(ts) {
+          if (!ts) return '확인 대기';
+          return new Date(ts).toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        let toastTimer = null;
+        function showToast(msg) {
+          const el = document.getElementById('toast-root');
+          if (!el) return;
+          el.textContent = msg;
+          el.classList.remove('hidden');
+          clearTimeout(toastTimer);
+          toastTimer = setTimeout(() => el.classList.add('hidden'), 2800);
+        }
+
+        // =========================================================
+        // 7. Actions (Sync, Follow, Bookmark, View, Export, QA)
+        // =========================================================
+        async function checkAndSyncHourly(isManual = false) {
+          if (state.refreshing) return;
+          state.refreshing = true;
+          render();
+
+          try {
+            const { issues: fetched, originLabel } = await fetchLiveFeeds();
+            state.syncInfo.lastCheckedAt = Date.now();
+            state.syncInfo.nextCheckAt = Date.now() + HOURLY_INTERVAL_MS;
+
+            if (fetched.length > 0) {
+              const prevIds = new Set(state.liveIssues.map((i) => i.id));
+              const prevTitles = new Set(state.liveIssues.map((i) => i.title.trim()));
+              const newOnes = fetched.filter((i) => !prevIds.has(i.id) && !prevTitles.has(i.title.trim()));
+              const isInitial = state.liveIssues.length === 0;
+
+              if (isInitial || newOnes.length > 0) {
+                state.liveIssues = fetched;
+                safeStorage.set(STORAGE_KEYS.CACHED_LIVE, fetched);
+                state.syncInfo.liveCount = fetched.length;
+                state.syncInfo.lastNewCount = isInitial ? fetched.length : newOnes.length;
+                state.syncInfo.hasNewUpdates = true;
+                state.syncInfo.modeLabel = originLabel;
+                if (!isInitial) {
+                  showToast(`새로운 이슈 ${newOnes.length}건을 발견해 피드를 자동 업데이트했습니다.`);
+                } else if (isManual) {
+                  showToast(`실시간 이슈 ${fetched.length}건을 불러왔습니다.`);
+                }
+              } else {
+                state.syncInfo.lastNewCount = 0;
+                state.syncInfo.hasNewUpdates = false;
+                if (isManual) showToast('새로운 이슈가 없어 현재 최신 피드를 유지합니다.');
+              }
+            } else {
+              state.syncInfo.liveCount = state.liveIssues.length;
+              state.syncInfo.modeLabel = state.liveIssues.length > 0 ? '캐시된 실시간 피드' : '내장 브리핑 데이터';
+              if (isManual) showToast('외부 RSS 응답이 지연되어 현재 피드를 유지합니다.');
+            }
+          } finally {
+            state.refreshing = false;
+            render();
+          }
+        }
+
+        function bumpMetric(id, viewsDelta, followsDelta) {
+          const metrics = safeStorage.get(STORAGE_KEYS.METRICS, {});
+          const prev = metrics[id] || { views: 0, follows: 0 };
+          metrics[id] = {
+            views: Math.max(0, (prev.views || 0) + viewsDelta),
+            follows: (prev.follows || 0) + followsDelta,
+          };
+          safeStorage.set(STORAGE_KEYS.METRICS, metrics);
+        }
+
+        function openIssueDetail(id) {
+          bumpMetric(id, 1, 0);
+          if (window.location.protocol !== 'file:') {
+            fetch(`/api/issues/${encodeURIComponent(id)}/view`, { method: 'POST' }).catch(() => {});
+          }
+          navigate({ name: 'detail', issueId: id });
+        }
+
+        function toggleFollow(id) {
+          const exists = state.followedIds.includes(id);
+          state.followedIds = exists
+            ? state.followedIds.filter((x) => x !== id)
+            : [id, ...state.followedIds];
+          safeStorage.set(STORAGE_KEYS.FOLLOWED, state.followedIds);
+          bumpMetric(id, 0, exists ? -1 : 1);
+          if (window.location.protocol !== 'file:') {
+            fetch(`/api/issues/${encodeURIComponent(id)}/follow`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ following: !exists }),
+            }).catch(() => {});
+          }
+          showToast(exists ? '이슈 팔로우를 해제했습니다.' : '관심 이슈에 추가되었습니다.');
+          render();
+        }
+
+        function toggleBookmark(id) {
+          const exists = state.bookmarkedIds.includes(id);
+          state.bookmarkedIds = exists
+            ? state.bookmarkedIds.filter((x) => x !== id)
+            : [id, ...state.bookmarkedIds];
+          safeStorage.set(STORAGE_KEYS.BOOKMARKED, state.bookmarkedIds);
+          showToast(exists ? '북마크에서 제거했습니다.' : '북마크에 저장했습니다.');
+          render();
+        }
+
+        function openQuickModal(id) {
+          const issue = getAllIssues().find((i) => i.id === id);
+          if (!issue) return;
+          const modalRoot = document.getElementById('modal-root');
+          const followed = state.followedIds.includes(issue.id);
+          modalRoot.innerHTML = `
+            <div class="modal-backdrop" id="modal-backdrop">
+              <div class="modal-card" id="modal-card">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:12px;border-bottom:1px solid var(--border);padding-bottom:14px;">
+                  <div>
+                    <div class="meta-line">
+                      <span class="txt-blue">30초 퀵 브리핑</span>
+                      <span>·</span>
+                      <span class="txt-violet">${esc(CATEGORY_LABELS[issue.category])}</span>
+                      <span>·</span>
+                      <span class="font-mono-num">${esc(issue.updatedAt)}</span>
+                      <span>·</span>
+                      <span class="font-mono-num">조회 ${formatNum(issue.viewCount)}</span>
+                    </div>
+                    <h2 style="margin:6px 0 0;font-size:19px;font-weight:800;line-height:1.35;">${esc(issue.title)}</h2>
+                  </div>
+                  <button type="button" class="icon-btn" id="modal-close" aria-label="닫기">✕</button>
+                </div>
+
+                <div class="summary-box" style="margin-top:16px;">
+                  <p class="eyebrow" style="margin-bottom:10px;">핵심 3줄 요약</p>
+                  <ol style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:8px;font-size:14px;">
+                    ${issue.summary30s.map((s) => `<li>${esc(s)}</li>`).join('')}
+                  </ol>
+                </div>
+
+                ${
+                  issue.sources && issue.sources.length
+                    ? `<div style="margin-top:16px;">
+                        <p style="margin:0 0 8px;font-size:12px;font-weight:700;">출처 (${issue.sources.length}건)</p>
+                        <div class="card" style="padding:8px 14px;">
+                          ${issue.sources
+                            .slice(0, 3)
+                            .map(
+                              (src) => `
+                            <div style="display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 0;border-bottom:1px solid var(--border);font-size:12.5px;">
+                              <div style="min-width:0;">
+                                <div style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${esc(src.title)}</div>
+                                <div style="color:var(--text-muted);font-size:11px;">${esc(src.publisher)}</div>
+                              </div>
+                              ${
+                                !src.isSamplePlaceholder && src.url
+                                  ? `<a href="${esc(src.url)}" target="_blank" rel="noopener noreferrer" class="txt-blue" style="flex-shrink:0;font-size:12px;">원문 ↗</a>`
+                                  : ''
+                              }
+                            </div>`
+                            )
+                            .join('')}
+                        </div>
+                      </div>`
+                    : ''
+                }
+
+                <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:18px;padding-top:14px;border-top:1px solid var(--border);">
+                  <button type="button" class="btn ${followed ? 'btn-violet-soft' : 'btn-secondary'}" data-modal-follow="${esc(issue.id)}">
+                    ${followed ? '팔로우 중' : '이슈 팔로우'}
+                  </button>
+                  <button type="button" class="btn btn-primary" data-modal-detail="${esc(issue.id)}">
+                    전체 타임라인 · 팩트체크 보기 →
+                  </button>
+                </div>
+              </div>
+            </div>`;
+
+          document.getElementById('modal-backdrop').addEventListener('click', (e) => {
+            if (e.target.id === 'modal-backdrop' || e.target.id === 'modal-close') {
+              modalRoot.innerHTML = '';
+            }
+          });
+          modalRoot.querySelector('[data-modal-follow]')?.addEventListener('click', () => {
+            toggleFollow(issue.id);
+            openQuickModal(issue.id);
+          });
+          modalRoot.querySelector('[data-modal-detail]')?.addEventListener('click', () => {
+            modalRoot.innerHTML = '';
+            openIssueDetail(issue.id);
+          });
+        }
+
+        function answerQuestionLocally(issue, q) {
+          const lower = q.toLowerCase();
+          if (/사실|미확인|루머|팩트/.test(lower)) {
+            const vf = issue.verifiedFacts.map((f) => `• [확인된 사실] ${f.statement} (${f.basis})`).join('\n');
+            const uc = issue.unverifiedClaims.length
+              ? issue.unverifiedClaims.map((u) => `• [미확인 주장] ${u.claim} — ${u.context}`).join('\n')
+              : '• 현재 분류된 미확인 주장 항목은 없습니다.';
+            return `${vf || '• 확인된 사실 요약 대기 중'}\n\n${uc}`;
+          }
+          if (/타임라인|흐름|언제|순서/.test(lower)) {
+            return issue.timeline.length
+              ? issue.timeline.map((t) => `• [${t.dateLabel} · ${t.stage}] ${t.title}: ${t.description}`).join('\n')
+              : '아직 세부 타임라인이 등록되지 않았습니다. 아래 출처 기사에서 시간순 경위를 확인할 수 있습니다.';
+          }
+          if (/입장|공식|발표/.test(lower)) {
+            return issue.officialStatements.length
+              ? issue.officialStatements.map((o) => `• ${o.speaker} (${o.role}): ${o.summary}`).join('\n')
+              : '현재까지 등록된 공식 입장문 요약이 없습니다.';
+          }
+          return `30초 핵심 요약:\n${issue.summary30s.map((s, idx) => `${idx + 1}. ${s}`).join('\n')}\n\n배경: ${issue.background.overview}`;
+        }
+
+        function exportBriefings(format) {
+          const issues = getAllIssues();
+          let content = '';
+          let filename = '';
+          let mime = 'text/plain;charset=utf-8';
+
+          if (format === 'json') {
+            content = JSON.stringify(issues, null, 2);
+            filename = `issuepulse-briefings-${new Date().toISOString().slice(0, 10)}.json`;
+            mime = 'application/json;charset=utf-8';
+          } else {
+            content = issues
+              .map(
+                (i, idx) =>
+                  `## ${idx + 1}. [${CATEGORY_LABELS[i.category]}] ${i.title}\n- 상태: ${STATUS_LABELS[i.status]} | 주목도: ${i.heatIndex} | 업데이트: ${i.updatedAt}\n- 부제: ${i.subtitle}\n- 30초 요약:\n  1) ${i.summary30s[0]}\n  2) ${i.summary30s[1]}\n  3) ${i.summary30s[2]}\n`
+              )
+              .join('\n---\n\n');
+            filename = `issuepulse-briefings-${new Date().toISOString().slice(0, 10)}.md`;
+          }
+
+          const blob = new Blob([content], { type: mime });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = filename;
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          URL.revokeObjectURL(url);
+          showToast(`${filename} 파일을 내려받았습니다.`);
+        }
+
+        function handleDownloadHtmlClick(e) {
+          if (window.location.protocol === 'file:') {
+            e.preventDefault();
+            showToast('이미 로컬 단일 index.html 파일로 실행 중입니다.');
+            return;
+          }
+          showToast('index.html 파일 다운로드를 시작합니다.');
+        }
+
+        async function copyFullHtmlCode() {
+          try {
+            let htmlText = '';
+            if (window.location.protocol !== 'file:') {
+              const res = await fetch('/index.html');
+              if (res.ok) htmlText = await res.text();
+            }
+            if (!htmlText) {
+              htmlText = '<!doctype html>\n' + document.documentElement.outerHTML;
+            }
+            await navigator.clipboard.writeText(htmlText);
+            showToast('전체 index.html 코드를 클립보드에 복사했습니다.');
+          } catch (_) {
+            showToast('클립보드 복사에 실패했습니다. 상단 다운로드 버튼을 이용해 주세요.');
+          }
+        }
+
+        // =========================================================
+        // 8. HTML Card & Page Renderers
+        // =========================================================
+        function renderIssueCard(issue, rank) {
+          const followed = state.followedIds.includes(issue.id);
+          const bookmarked = state.bookmarkedIds.includes(issue.id);
+          const originTxt = issue.dataOrigin === 'live_rss' ? '실시간 RSS' : '내장 브리핑';
+
+          return `
+            <article class="card issue-card" data-open-issue="${esc(issue.id)}">
+              <div class="card-media">
+                <img src="${esc(issue.coverImage)}" alt="${esc(issue.coverAlt || issue.title)}" />
+              </div>
+              <div class="card-body">
+                <div>
+                  <div class="meta-line">
+                    ${typeof rank === 'number' ? `<span class="font-mono-num txt-violet">#${rank}</span><span>·</span>` : ''}
+                    ${issue.isBreaking ? `<span class="txt-rose">속보</span><span>·</span>` : ''}
+                    <span style="font-weight:700;color:var(--text-secondary);">${esc(CATEGORY_LABELS[issue.category])}</span>
+                    <span>·</span>
+                    <span class="txt-violet">${esc(STATUS_LABELS[issue.status])}</span>
+                    <span>·</span>
+                    <span class="txt-blue">${esc(originTxt)}</span>
+                  </div>
+                  <h3 class="card-title">${esc(issue.title)}</h3>
+                  <p class="card-desc">${esc(issue.subtitle)}</p>
+                </div>
+
+                <div class="card-foot">
+                  <div class="metrics-col">
+                    <div class="metrics-row font-mono-num">
+                      <span>조회 ${formatNum(issue.viewCount)}</span>
+                      <span>팔로우 ${formatNum(issue.followCount)}</span>
+                    </div>
+                    <div class="font-mono-num">${esc(issue.updatedAt)}</div>
+                  </div>
+
+                  <div class="card-btns">
+                    <button type="button" class="mini-btn" data-quick-brief="${esc(issue.id)}">30초</button>
+                    <button type="button" class="mini-btn ${bookmarked ? 'bookmarked' : ''}" data-bookmark="${esc(issue.id)}" aria-label="북마크">
+                      ${bookmarked ? '저장됨' : '저장'}
+                    </button>
+                    <button type="button" class="mini-btn ${followed ? 'followed' : ''}" data-follow="${esc(issue.id)}">
+                      ${followed ? '팔로잉' : '팔로우'}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </article>`;
+        }
+
+        function renderSortGroup() {
+          const modes = [
+            { id: 'latest', label: '최신속보순' },
+            { id: 'views', label: '조회수순' },
+            { id: 'follows', label: '팔로우순' },
+            { id: 'heat', label: '주목도순' },
+          ];
+          return `
+            <div class="sort-group" role="group" aria-label="실시간 인기 이슈 정렬">
+              ${modes
+                .map(
+                  (m) => `
+                <button type="button" class="sort-btn ${state.sortMode === m.id ? 'active' : ''}" data-sort="${m.id}">
+                  ${m.label}
+                </button>`
+                )
+                .join('')}
+            </div>`;
+        }
+
+        function renderHomePage(allIssues) {
+          const counts = { all: allIssues.length };
+          CATEGORY_TABS.forEach((t) => {
+            if (t.id !== 'all') counts[t.id] = allIssues.filter((i) => matchesCategory(i, t.id)).length;
+          });
+
+          const filteredList = sortIssues(
+            state.selectedCategory === 'all'
+              ? allIssues
+              : allIssues.filter((i) => matchesCategory(i, state.selectedCategory)),
+            state.sortMode
+          );
+
+          const liveCandidates = allIssues.filter((i) => i.dataOrigin === 'live_rss');
+          const featured =
+            sortIssues(liveCandidates, 'heat')[0] ||
+            allIssues.find((i) => i.isFeaturedToday) ||
+            allIssues[0];
+          const top5 = sortIssues(
+            allIssues.filter((i) => i.id !== featured?.id),
+            'heat'
+          ).slice(0, 5);
+          const trending = sortIssues(
+            allIssues.filter((i) => i.id !== featured?.id),
+            state.sortMode
+          ).slice(0, 6);
+          const newDiscoveries = sortIssues(
+            allIssues.filter((i) => i.isNewDiscovery || i.isBreaking),
+            'latest'
+          ).slice(0, 6);
+          const globals = sortIssues(
+            allIssues.filter((i) => i.scope === 'global' || i.category === 'global'),
+            state.sortMode
+          ).slice(0, 6);
+
+          const statusHtml = `
+            <div class="status-bar">
+              <div class="status-meta">
+                <strong style="color:var(--text);">1시간마다 새 이슈 자동 확인·업데이트</strong>
+                <span>·</span>
+                <span>모드: <strong class="txt-blue">${esc(state.syncInfo.modeLabel)}</strong></span>
+                <span>·</span>
+                <span class="font-mono-num">최근 확인 ${formatTime(state.syncInfo.lastCheckedAt)}</span>
+                <span>·</span>
+                <span class="font-mono-num">다음 확인 ${formatTime(state.syncInfo.nextCheckAt)}</span>
+                ${
+                  state.syncInfo.hasNewUpdates && state.syncInfo.lastNewCount > 0
+                    ? `<span>·</span><span class="txt-violet">신규 ${state.syncInfo.lastNewCount}건 반영</span>`
+                    : ''
+                }
+              </div>
+              <div class="status-actions">
+                <a href="/index.html?download=1" download="index.html" class="btn btn-primary" data-dl-html>
+                  index.html 다운로드
+                </a>
+                <button type="button" class="btn btn-secondary" id="btn-refresh-live" ${state.refreshing ? 'disabled' : ''}>
+                  <span class="${state.refreshing ? 'spin' : ''}">↻</span>
+                  <span>${state.refreshing ? '확인 중...' : '새 이슈 지금 확인'}</span>
+                </button>
+              </div>
+            </div>`;
+
+          const tabsHtml = `
+            <div class="tab-bar" role="tablist" aria-label="카테고리 필터">
+              ${CATEGORY_TABS.map(
+                (t) => `
+                <button type="button" role="tab" aria-selected="${state.selectedCategory === t.id}" class="tab-btn ${state.selectedCategory === t.id ? 'active' : ''}" data-cat-tab="${t.id}">
+                  <span>${t.label}</span>
+                  <span class="font-mono-num tab-count">${counts[t.id] || 0}</span>
+                </button>`
+              ).join('')}
+            </div>`;
+
+          if (state.selectedCategory !== 'all') {
+            return `
+              ${statusHtml}
+              ${tabsHtml}
+              <section class="section">
+                <div class="section-head">
+                  <div>
+                    <p class="eyebrow">자동 분류 피드</p>
+                    <h1 class="h1-title">${esc(CATEGORY_LABELS[state.selectedCategory])} 이슈 (${filteredList.length})</h1>
+                  </div>
+                  <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;">
+                    ${renderSortGroup()}
+                    <button type="button" class="btn btn-secondary" data-cat-tab="all">전체 보기</button>
+                  </div>
+                </div>
+                ${
+                  filteredList.length
+                    ? `<div class="cards-grid">${filteredList.map((it, i) => renderIssueCard(it, i + 1)).join('')}</div>`
+                    : `<div class="empty-box"><p>해당 카테고리에 등록된 이슈가 없습니다.</p></div>`
+                }
+              </section>`;
+          }
+
+          const featuredFollowed = featured && state.followedIds.includes(featured.id);
+
+          return `
+            ${statusHtml}
+            ${tabsHtml}
+
+            <section class="section">
+              <div class="section-head">
+                <div>
+                  <p class="eyebrow">요즘 가장 화제인 사건 · 한눈에 보기</p>
+                  <h1 class="h1-title">지금 가장 이슈화된 사건</h1>
+                </div>
+                <span class="sub-note font-mono-num">화제성 · 최신성 · 자동 분류 반영</span>
+              </div>
+
+              ${
+                featured
+                  ? `
+                <div class="hero-grid">
+                  <div class="card">
+                    <div class="hero-media">
+                      <img src="${esc(featured.coverImage)}" alt="${esc(featured.coverAlt || featured.title)}" />
+                    </div>
+                    <div class="hero-body">
+                      <div class="meta-line">
+                        <span class="font-mono-num txt-violet">#1 핫이슈</span>
+                        <span>·</span>
+                        ${featured.isBreaking ? `<span class="txt-rose">속보</span><span>·</span>` : ''}
+                        <span class="txt-violet">${esc(CATEGORY_LABELS[featured.category])}</span>
+                        <span>·</span>
+                        <span class="txt-blue">${esc(STATUS_LABELS[featured.status])}</span>
+                        <span>·</span>
+                        <span class="font-mono-num">${esc(featured.updatedAt)}</span>
+                      </div>
+                      <h2 class="hero-headline" data-open-issue="${esc(featured.id)}">${esc(featured.title)}</h2>
+                      <p class="hero-sub">${esc(featured.subtitle)}</p>
+                      <ul class="hero-summary-list">
+                        ${featured.summary30s
+                          .slice(0, 2)
+                          .map(
+                            (line, idx) => `
+                          <li>
+                            <span class="font-mono-num txt-blue">0${idx + 1}</span>
+                            <span>${esc(line)}</span>
+                          </li>`
+                          )
+                          .join('')}
+                      </ul>
+                      <div style="display:flex;flex-wrap:wrap;gap:8px;padding-top:6px;">
+                        <button type="button" class="btn btn-primary" data-open-issue="${esc(featured.id)}">전체 브리핑 읽기 →</button>
+                        <button type="button" class="btn btn-blue-soft" data-quick-brief="${esc(featured.id)}">30초 퀵뷰</button>
+                        <button type="button" class="btn ${featuredFollowed ? 'btn-violet-soft' : 'btn-secondary'}" data-follow="${esc(featured.id)}">
+                          ${featuredFollowed ? '팔로잉' : '후속 알림'}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card top5-panel">
+                    <div>
+                      <div class="top5-head">
+                        <strong style="font-size:15px;">지금 뜨는 사건 한눈에 TOP 5</strong>
+                        <span style="font-size:11px;color:var(--text-muted);">클릭 시 바로 이동</span>
+                      </div>
+                      <div>
+                        ${top5
+                          .map(
+                            (item, idx) => `
+                          <div class="top5-row">
+                            <button type="button" class="top5-link" data-open-issue="${esc(item.id)}">
+                              <span class="font-mono-num top5-rank">0${idx + 2}</span>
+                              <div style="min-width:0;">
+                                <div class="meta-line" style="font-size:11px;">
+                                  ${item.isBreaking ? `<span class="txt-rose">속보</span><span>·</span>` : ''}
+                                  <span style="font-weight:700;">${esc(CATEGORY_LABELS[item.category])}</span>
+                                  <span>·</span>
+                                  <span class="font-mono-num">${esc(item.updatedAt)}</span>
+                                </div>
+                                <p class="top5-title">${esc(item.title)}</p>
+                              </div>
+                            </button>
+                            <button type="button" class="mini-btn" data-quick-brief="${esc(item.id)}">30초</button>
+                          </div>`
+                          )
+                          .join('')}
+                      </div>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;align-items:center;padding-top:12px;border-top:1px solid var(--border);font-size:12px;">
+                      <span style="color:var(--text-muted);">원하는 사건이 없나요?</span>
+                      <button type="button" class="txt-blue" data-nav="explore">키워드 실시간 검색 →</button>
+                    </div>
+                  </div>
+                </div>`
+                  : ''
+              }
+            </section>
+
+            <section class="section">
+              <div class="section-head">
+                <div>
+                  <h2 class="h2-title">실시간 인기 이슈</h2>
+                  <p class="sub-note">조회수·팔로우 수·최신속보 기준으로 즉시 전환해 볼 수 있습니다.</p>
+                </div>
+                ${renderSortGroup()}
+              </div>
+              <div class="cards-grid">
+                ${trending.map((it, i) => renderIssueCard(it, i + 1)).join('')}
+              </div>
+            </section>
+
+            <section class="section">
+              <div class="section-head">
+                <h2 class="h2-title">신규 발견 이슈</h2>
+                <span class="font-mono-num sub-note">${newDiscoveries.length}건</span>
+              </div>
+              <div class="card compact-list">
+                ${newDiscoveries
+                  .map(
+                    (it, idx) => `
+                  <div class="compact-row" data-open-issue="${esc(it.id)}">
+                    <div style="display:flex;gap:12px;min-width:0;flex:1;">
+                      <span class="font-mono-num txt-violet" style="font-weight:800;margin-top:2px;">0${idx + 1}</span>
+                      <div style="min-width:0;flex:1;">
+                        <div class="meta-line" style="font-size:11.5px;">
+                          ${it.isBreaking ? `<span class="txt-rose">속보</span><span>·</span>` : ''}
+                          <span>${esc(CATEGORY_LABELS[it.category])}</span>
+                          <span>·</span>
+                          <span class="font-mono-num">${esc(it.updatedAt)}</span>
+                          <span>·</span>
+                          <span class="font-mono-num">조회 ${formatNum(it.viewCount)}</span>
+                        </div>
+                        <p class="compact-title">${esc(it.title)}</p>
+                        <p class="compact-sub">${esc(it.subtitle)}</p>
+                      </div>
+                    </div>
+                    <button type="button" class="mini-btn" data-quick-brief="${esc(it.id)}">30초</button>
+                  </div>`
+                  )
+                  .join('')}
+              </div>
+            </section>
+
+            <section class="section">
+              <div class="section-head">
+                <div>
+                  <h2 class="h2-title">글로벌 이슈</h2>
+                  <p class="sub-note">한국 시장과 이용자 환경에 영향을 주는 해외 핵심 동향</p>
+                </div>
+                <button type="button" class="txt-blue" style="font-size:12px;" data-cat-tab="global">글로벌 필터 보기</button>
+              </div>
+              <div class="cards-grid">
+                ${globals.map((it) => renderIssueCard(it)).join('')}
+              </div>
+            </section>`;
+        }
+
+        function renderExplorePage(allIssues) {
+          const q = state.exploreQuery.trim().toLowerCase();
+          const filtered = sortIssues(
+            allIssues.filter((i) => {
+              if (!matchesCategory(i, state.exploreCategory)) return false;
+              if (state.exploreScope !== 'all' && i.scope !== state.exploreScope) return false;
+              if (!q) return true;
+              const hay = `${i.title} ${i.subtitle} ${(i.tags || []).join(' ')} ${i.regionLabel}`.toLowerCase();
+              return hay.includes(q);
+            }),
+            state.sortMode
+          );
+
+          return `
+            <div class="stack-lg">
+              <div>
+                <p class="eyebrow">이슈 탐색</p>
+                <h1 class="h1-title">카테고리 · 키워드 검색</h1>
+              </div>
+
+              <div class="card search-box">
+                <form id="explore-form" class="search-row">
+                  <input type="search" id="explore-input" class="input" style="flex:1;min-width:200px;" placeholder="인물, 사건, 화재, 교통사고, 스토브리그 등 검색..." value="${esc(state.exploreQuery)}" />
+                  <button type="submit" class="btn btn-primary">검색</button>
+                  <button type="button" class="btn btn-blue-soft" id="btn-live-search" ${state.searchingLive ? 'disabled' : ''}>
+                    ${state.searchingLive ? '실시간 검색 중...' : '실시간 RSS 검색'}
+                  </button>
+                </form>
+
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12px;">
+                  <span style="color:var(--text-muted);font-weight:600;">추천 키워드:</span>
+                  ${state.recentSearches
+                    .map(
+                      (term) => `
+                    <button type="button" class="mini-btn" data-quick-search="${esc(term)}">#${esc(term)}</button>`
+                    )
+                    .join('')}
+                </div>
+
+                <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;padding-top:8px;border-top:1px solid var(--border);">
+                  <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                    ${CATEGORY_TABS.map(
+                      (t) => `
+                      <button type="button" class="sort-btn ${state.exploreCategory === t.id ? 'active' : ''}" data-ex-cat="${t.id}">
+                        ${t.label}
+                      </button>`
+                    ).join('')}
+                  </div>
+                  ${renderSortGroup()}
+                </div>
+              </div>
+
+              <p class="sub-note font-mono-num">검색 결과 ${filtered.length}건</p>
+              ${
+                filtered.length
+                  ? `<div class="cards-grid">${filtered.map((it) => renderIssueCard(it)).join('')}</div>`
+                  : `<div class="empty-box"><p>조건에 맞는 이슈가 없습니다. ‘실시간 RSS 검색’ 버튼을 눌러 최신 기사를 찾아보세요.</p></div>`
+              }
+            </div>`;
+        }
+
+        function renderDetailPage(allIssues, issueId) {
+          const issue = allIssues.find((i) => i.id === issueId);
+          if (!issue) {
+            return `<div class="empty-box"><p>요청한 이슈를 찾을 수 없습니다.</p><button type="button" class="btn btn-primary" data-nav="home" style="margin-top:12px;">홈으로</button></div>`;
+          }
+
+          const followed = state.followedIds.includes(issue.id);
+          const bookmarked = state.bookmarkedIds.includes(issue.id);
+          const thread = state.qaMessagesByIssue[issue.id] || [
+            {
+              role: 'bot',
+              text: `‘${issue.title}’ 브리핑에 대해 궁금한 점(확인된 사실, 미확인 주장, 타임라인, 공식 입장 등)을 물어보세요.`,
+            },
+          ];
+
+          return `
+            <div class="stack-lg">
+              <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;padding-bottom:14px;border-bottom:1px solid var(--border);">
+                <button type="button" class="btn btn-secondary" id="btn-back">← 목록으로</button>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <button type="button" class="btn ${bookmarked ? 'btn-blue-soft' : 'btn-secondary'}" data-bookmark="${esc(issue.id)}">
+                    ${bookmarked ? '저장됨' : '저장'}
+                  </button>
+                  <button type="button" class="btn ${followed ? 'btn-primary' : 'btn-secondary'}" data-follow="${esc(issue.id)}">
+                    ${followed ? '팔로우 중' : '이슈 팔로우'}
+                  </button>
+                </div>
+              </div>
+
+              <header style="max-width:780px;">
+                <div class="meta-line">
+                  <span class="txt-violet">${esc(CATEGORY_LABELS[issue.category])}</span>
+                  <span>·</span>
+                  <span>${esc(issue.regionLabel)}</span>
+                  <span>·</span>
+                  <span class="txt-blue">${esc(STATUS_LABELS[issue.status])}</span>
+                  <span>·</span>
+                  <span class="font-mono-num">${esc(issue.updatedAt)}</span>
+                  <span>·</span>
+                  <span class="font-mono-num">조회 ${formatNum(issue.viewCount)}</span>
+                  <span>·</span>
+                  <span class="font-mono-num">팔로우 ${formatNum(issue.followCount)}</span>
+                </div>
+                <h1 class="h1-title" style="margin-top:10px;">${esc(issue.title)}</h1>
+                <p style="margin:10px 0 0;color:var(--text-secondary);font-size:16px;">${esc(issue.subtitle)}</p>
+              </header>
+
+              <div class="detail-grid">
+                <div class="stack-lg">
+                  <figure class="detail-figure" style="margin:0;">
+                    <img src="${esc(issue.coverImage)}" alt="${esc(issue.coverAlt || issue.title)}" />
+                    <figcaption class="detail-caption">${esc(issue.coverAlt)}</figcaption>
+                  </figure>
+
+                  <section class="summary-box">
+                    <p class="eyebrow" style="margin-bottom:10px;">30초 핵심 요약</p>
+                    <ol style="margin:0;padding-left:20px;display:flex;flex-direction:column;gap:8px;font-size:14.5px;">
+                      ${issue.summary30s.map((s) => `<li>${esc(s)}</li>`).join('')}
+                    </ol>
+                  </section>
+
+                  <section class="card detail-box">
+                    <h2 class="h2-title" style="font-size:17px;margin-bottom:8px;">배경 설명</h2>
+                    <p style="margin:0;font-size:14px;color:var(--text-secondary);line-height:1.65;">${esc(issue.background.overview)}</p>
+                    ${
+                      issue.background.keyTerms && issue.background.keyTerms.length
+                        ? `<div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:8px;">
+                            ${issue.background.keyTerms
+                              .map((kt) => `<div style="font-size:13px;"><strong>${esc(kt.term)}</strong> — <span style="color:var(--text-secondary);">${esc(kt.meaning)}</span></div>`)
+                              .join('')}
+                          </div>`
+                        : ''
+                    }
+                  </section>
+
+                  <section class="card detail-box">
+                    <h2 class="h2-title" style="font-size:17px;margin-bottom:14px;">진행 타임라인</h2>
+                    ${
+                      issue.timeline.length
+                        ? issue.timeline
+                            .map(
+                              (t) => `
+                          <div class="timeline-item">
+                            <span class="timeline-dot"></span>
+                            <div class="meta-line" style="font-size:11.5px;">
+                              <span class="font-mono-num txt-violet">${esc(t.dateLabel)}</span>
+                              <span>·</span>
+                              <span class="txt-blue">${esc(t.stage)}</span>
+                            </div>
+                            <div style="font-weight:700;font-size:14.5px;margin-top:3px;">${esc(t.title)}</div>
+                            <p style="margin:4px 0 0;font-size:13px;color:var(--text-secondary);">${esc(t.description)}</p>
+                          </div>`
+                            )
+                            .join('')
+                        : '<p class="sub-note">등록된 타임라인이 없습니다.</p>'
+                    }
+                  </section>
+
+                  <section class="fact-grid">
+                    <div class="card detail-box">
+                      <h2 class="h2-title" style="font-size:16px;color:var(--emerald);margin-bottom:10px;">확인된 사실</h2>
+                      ${
+                        issue.verifiedFacts.length
+                          ? `<ul style="margin:0;padding-left:18px;font-size:13.5px;display:flex;flex-direction:column;gap:8px;">
+                              ${issue.verifiedFacts.map((f) => `<li><strong>${esc(f.statement)}</strong><div class="sub-note">${esc(f.basis)}</div></li>`).join('')}
+                            </ul>`
+                          : '<p class="sub-note">추가 확인 중입니다.</p>'
+                      }
+                    </div>
+                    <div class="card detail-box">
+                      <h2 class="h2-title" style="font-size:16px;color:var(--amber);margin-bottom:10px;">미확인 주장 · 루머</h2>
+                      ${
+                        issue.unverifiedClaims.length
+                          ? `<ul style="margin:0;padding-left:18px;font-size:13.5px;display:flex;flex-direction:column;gap:8px;">
+                              ${issue.unverifiedClaims.map((u) => `<li><strong>${esc(u.claim)}</strong><div class="sub-note">${esc(u.context)}</div></li>`).join('')}
+                            </ul>`
+                          : '<p class="sub-note">분류된 미확인 주장이 없습니다.</p>'
+                      }
+                    </div>
+                  </section>
+
+                  <section class="card detail-box">
+                    <h2 class="h2-title" style="font-size:17px;margin-bottom:10px;">공식 입장</h2>
+                    ${
+                      issue.officialStatements.length
+                        ? issue.officialStatements
+                            .map(
+                              (o) => `
+                          <div style="padding:10px 0;border-bottom:1px solid var(--border);font-size:13.5px;">
+                            <div style="font-weight:700;">${esc(o.speaker)} <span class="sub-note">(${esc(o.role)})</span></div>
+                            <p style="margin:4px 0 0;color:var(--text-secondary);">${esc(o.summary)}</p>
+                          </div>`
+                            )
+                            .join('')
+                        : '<p class="sub-note">아직 공식 입장문 요약이 등록되지 않았습니다.</p>'
+                    }
+                  </section>
+                </div>
+
+                <aside class="stack-lg">
+                  <section class="card detail-box">
+                    <h2 class="h2-title" style="font-size:16px;margin-bottom:10px;">출처 링크</h2>
+                    <div class="stack-sm">
+                      ${issue.sources
+                        .map(
+                          (s) => `
+                        <div style="padding:10px;border:1px solid var(--border);border-radius:10px;font-size:13px;">
+                          <div style="font-weight:600;">${esc(s.title)}</div>
+                          <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px;font-size:11.5px;color:var(--text-muted);">
+                            <span>${esc(s.publisher)} · ${esc(s.publishedAt)}</span>
+                            ${
+                              !s.isSamplePlaceholder && s.url
+                                ? `<a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer" class="txt-blue">기사 원문 ↗</a>`
+                                : '<span>샘플 항목</span>'
+                            }
+                          </div>
+                        </div>`
+                        )
+                        .join('')}
+                    </div>
+                  </section>
+
+                  <section class="card detail-box">
+                    <h2 class="h2-title" style="font-size:16px;">AI 브리핑 질문하기</h2>
+                    <p class="sub-note" style="margin-bottom:12px;">수집된 브리핑 데이터를 바탕으로 즉시 핵심 내용을 질의합니다.</p>
+                    <div class="qa-thread" id="qa-thread">
+                      ${thread
+                        .map((m) => `<div class="qa-msg ${m.role === 'user' ? 'user' : 'bot'}">${esc(m.text).replace(/\n/g, '<br/>')}</div>`)
+                        .join('')}
+                    </div>
+                    <div style="display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;">
+                      ${['확인된 사실과 미확인 차이는?', '타임라인 요약해 줘', '공식 입장은 무엇인가요?']
+                        .map((q) => `<button type="button" class="mini-btn" data-qa-quick="${esc(q)}">${esc(q)}</button>`)
+                        .join('')}
+                    </div>
+                    <form id="qa-form" style="display:flex;gap:8px;">
+                      <input type="text" id="qa-input" class="input" style="flex:1;" placeholder="이슈에 대해 질문하세요..." />
+                      <button type="submit" class="btn btn-primary">질문</button>
+                    </form>
+                  </section>
+                </aside>
+              </div>
+            </div>`;
+        }
+
+        function renderSavedPage(allIssues) {
+          const list =
+            state.savedTab === 'followed'
+              ? allIssues.filter((i) => state.followedIds.includes(i.id))
+              : allIssues.filter((i) => state.bookmarkedIds.includes(i.id));
+
+          return `
+            <div class="stack-lg">
+              <div>
+                <p class="eyebrow">관심 이슈</p>
+                <h1 class="h1-title">팔로우 · 저장한 브리핑</h1>
+              </div>
+
+              <div class="sort-group">
+                <button type="button" class="sort-btn ${state.savedTab === 'followed' ? 'active' : ''}" data-saved-tab="followed">
+                  팔로우한 이슈 (${state.followedIds.length})
+                </button>
+                <button type="button" class="sort-btn ${state.savedTab === 'bookmarked' ? 'active' : ''}" data-saved-tab="bookmarked">
+                  북마크 저장 (${state.bookmarkedIds.length})
+                </button>
+              </div>
+
+              ${
+                list.length
+                  ? `<div class="cards-grid">${list.map((it) => renderIssueCard(it)).join('')}</div>`
+                  : `<div class="empty-box"><p>아직 등록된 이슈가 없습니다. 홈이나 탐색에서 이슈를 팔로우·저장해 보세요.</p></div>`
+              }
+            </div>`;
+        }
+
+        function renderMyPage() {
+          return `
+            <div class="stack-lg" style="max-width:860px;margin:0 auto;">
+              <section class="card detail-box" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center;">
+                <div>
+                  <h1 class="h2-title">${esc(state.prefs.displayName)}</h1>
+                  <p class="sub-note">설정은 브라우저 LocalStorage에 저장됩니다 · 단일 index.html 모드</p>
+                </div>
+                <div style="display:flex;gap:20px;">
+                  <div><div class="sub-note">팔로우</div><strong class="font-mono-num txt-violet" style="font-size:20px;">${state.followedIds.length}</strong></div>
+                  <div><div class="sub-note">북마크</div><strong class="font-mono-num txt-blue" style="font-size:20px;">${state.bookmarkedIds.length}</strong></div>
+                </div>
+              </section>
+
+              <div class="grid-2">
+                <section class="card detail-box">
+                  <h2 class="h2-title" style="font-size:16px;">화면 테마</h2>
+                  <p class="sub-note" style="margin-bottom:12px;">라이트 / 다크 모드를 선택합니다.</p>
+                  <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+                    <button type="button" class="btn ${state.prefs.theme === 'light' ? 'btn-violet-soft' : 'btn-secondary'}" data-set-theme="light">라이트</button>
+                    <button type="button" class="btn ${state.prefs.theme === 'dark' ? 'btn-violet-soft' : 'btn-secondary'}" data-set-theme="dark">다크</button>
+                  </div>
+                </section>
+
+                <section class="card detail-box">
+                  <h2 class="h2-title" style="font-size:16px;">파일 내보내기 & 배포</h2>
+                  <p class="sub-note" style="margin-bottom:12px;">단일 HTML 파일 또는 수집된 이슈 브리핑 데이터를 저장합니다.</p>
+                  <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                    <a href="/index.html?download=1" download="index.html" class="btn btn-primary" data-dl-html>index.html 다운로드</a>
+                    <button type="button" class="btn btn-secondary" id="btn-copy-html">HTML 코드 복사</button>
+                    <button type="button" class="btn btn-secondary" data-export="json">JSON 내보내기</button>
+                    <button type="button" class="btn btn-secondary" data-export="md">마크다운 내보내기</button>
+                  </div>
+                </section>
+              </div>
+
+              <section class="card detail-box">
+                <h2 class="h2-title" style="font-size:16px;margin-bottom:10px;">관심 카테고리</h2>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;">
+                  ${Object.keys(CATEGORY_LABELS)
+                    .map((cat) => {
+                      const active = state.prefs.preferredCategories.includes(cat);
+                      return `<button type="button" class="btn ${active ? 'btn-primary' : 'btn-secondary'}" data-pref-cat="${cat}">${CATEGORY_LABELS[cat]}</button>`;
+                    })
+                    .join('')}
+                </div>
+              </section>
+            </div>`;
+        }
+
+        function renderAdminPage(allIssues) {
+          const activeCount = allIssues.filter((i) => i.status === 'ongoing' || i.status === 'investigating').length;
+          const globalCount = allIssues.filter((i) => i.scope === 'global').length;
+
+          return `
+            <div class="stack-lg">
+              <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:flex-end;">
+                <div>
+                  <p class="eyebrow">에디터 백오피스</p>
+                  <h1 class="h1-title">이슈 관리자 콘솔</h1>
+                  <p class="sub-note">등록·수정 내용은 브라우저 저장소에 즉시 반영됩니다.</p>
+                </div>
+                <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                  <button type="button" class="btn btn-secondary" id="btn-reset-samples">초기화</button>
+                  <button type="button" class="btn btn-primary" id="btn-toggle-admin-form">${state.showAdminForm ? '작성 닫기' : '새 이슈 등록'}</button>
+                </div>
+              </div>
+
+              <div class="grid-3">
+                <div class="card detail-box"><div class="sub-note">전체 이슈</div><div class="font-mono-num" style="font-size:26px;font-weight:800;margin-top:6px;">${allIssues.length}</div></div>
+                <div class="card detail-box"><div class="sub-note">진행·조사 중</div><div class="font-mono-num txt-violet" style="font-size:26px;font-weight:800;margin-top:6px;">${activeCount}</div></div>
+                <div class="card detail-box"><div class="sub-note">글로벌 브리핑</div><div class="font-mono-num txt-blue" style="font-size:26px;font-weight:800;margin-top:6px;">${globalCount}</div></div>
+              </div>
+
+              ${
+                state.showAdminForm
+                  ? `
+                <form id="admin-create-form" class="card detail-box stack-md">
+                  <h2 class="h2-title" style="font-size:17px;">새 이슈 등록</h2>
+                  <input required id="adm-title" class="input" style="width:100%;" placeholder="이슈 제목 *" />
+                  <input required id="adm-sub" class="input" style="width:100%;" placeholder="한 줄 부제 *" />
+                  <div class="grid-2">
+                    <select id="adm-cat" class="input">
+                      ${Object.keys(CATEGORY_LABELS)
+                        .map((c) => `<option value="${c}">${CATEGORY_LABELS[c]}</option>`)
+                        .join('')}
+                    </select>
+                    <select id="adm-scope" class="input">
+                      <option value="domestic">국내</option>
+                      <option value="global">글로벌</option>
+                    </select>
+                  </div>
+                  <input id="adm-s1" class="input" style="width:100%;" placeholder="30초 요약 1문장" />
+                  <textarea id="adm-overview" rows="3" class="textarea" placeholder="배경 설명"></textarea>
+                  <div style="display:flex;justify-content:space-between;gap:8px;">
+                    <button type="button" class="btn btn-blue-soft" id="btn-adm-auto">제목으로 카테고리 자동 분류</button>
+                    <button type="submit" class="btn btn-primary">저장하기</button>
+                  </div>
+                </form>`
+                  : ''
+              }
+
+              <section class="card">
+                <div style="padding:16px 20px;border-bottom:1px solid var(--border);font-weight:700;">이슈 목록 관리</div>
+                <div>
+                  ${allIssues
+                    .slice(0, 20)
+                    .map(
+                      (i) => `
+                    <div style="padding:14px 20px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;align-items:center;">
+                      <div style="min-width:0;flex:1;">
+                        <div class="meta-line" style="font-size:11.5px;">
+                          <span class="txt-violet">${esc(CATEGORY_LABELS[i.category])}</span>
+                          <span>·</span>
+                          <span class="font-mono-num">${esc(i.updatedAt)}</span>
+                        </div>
+                        <div style="font-weight:700;margin-top:2px;">${esc(i.title)}</div>
+                      </div>
+                      <div style="display:flex;gap:8px;align-items:center;">
+                        <select class="input" style="height:36px;font-size:12px;" data-admin-status="${esc(i.id)}">
+                          ${Object.keys(STATUS_LABELS)
+                            .map((s) => `<option value="${s}" ${i.status === s ? 'selected' : ''}>${STATUS_LABELS[s]}</option>`)
+                            .join('')}
+                        </select>
+                        <button type="button" class="btn btn-secondary" style="min-height:36px;" data-open-issue="${esc(i.id)}">보기</button>
+                      </div>
+                    </div>`
+                    )
+                    .join('')}
+                </div>
+              </section>
+            </div>`;
+        }
+
+        // =========================================================
+        // 9. Master Render & Event Binding
+        // =========================================================
+        function applyTheme() {
+          const isDark = state.prefs.theme === 'dark';
+          document.documentElement.classList.toggle('dark', isDark);
+          const icon = document.getElementById('theme-icon');
+          if (icon) icon.textContent = isDark ? '☀' : '☾';
+        }
+
+        function render() {
+          applyTheme();
+          const allIssues = getAllIssues();
+          const main = document.getElementById('app-main');
+          if (!main) return;
+
+          if (state.route.name === 'home') main.innerHTML = renderHomePage(allIssues);
+          else if (state.route.name === 'explore') main.innerHTML = renderExplorePage(allIssues);
+          else if (state.route.name === 'detail') main.innerHTML = renderDetailPage(allIssues, state.route.issueId);
+          else if (state.route.name === 'saved') main.innerHTML = renderSavedPage(allIssues);
+          else if (state.route.name === 'mypage') main.innerHTML = renderMyPage();
+          else main.innerHTML = renderAdminPage(allIssues);
+
+          document.querySelectorAll('[data-nav]').forEach((btn) => {
+            btn.classList.toggle('active', btn.getAttribute('data-nav') === state.route.name);
+          });
+          const savedLabel = document.getElementById('mobile-saved-label');
+          if (savedLabel) savedLabel.textContent = `관심(${state.followedIds.length})`;
+
+          bindPageEvents();
+        }
+
+        function bindPageEvents() {
+          const main = document.getElementById('app-main');
+          if (!main) return;
+
+          main.querySelectorAll('[data-open-issue]').forEach((el) => {
+            el.addEventListener('click', (e) => {
+              if (e.target.closest('[data-quick-brief],[data-follow],[data-bookmark],[data-admin-status]')) return;
+              openIssueDetail(el.getAttribute('data-open-issue'));
+            });
+          });
+
+          main.querySelectorAll('[data-quick-brief]').forEach((el) => {
+            el.addEventListener('click', (e) => {
+              e.stopPropagation();
+              openQuickModal(el.getAttribute('data-quick-brief'));
+            });
+          });
+
+          main.querySelectorAll('[data-follow]').forEach((el) => {
+            el.addEventListener('click', (e) => {
+              e.stopPropagation();
+              toggleFollow(el.getAttribute('data-follow'));
+            });
+          });
+
+          main.querySelectorAll('[data-bookmark]').forEach((el) => {
+            el.addEventListener('click', (e) => {
+              e.stopPropagation();
+              toggleBookmark(el.getAttribute('data-bookmark'));
+            });
+          });
+
+          main.querySelectorAll('[data-cat-tab]').forEach((el) => {
+            el.addEventListener('click', () => {
+              state.selectedCategory = el.getAttribute('data-cat-tab');
+              render();
+            });
+          });
+
+          main.querySelectorAll('[data-sort]').forEach((el) => {
+            el.addEventListener('click', () => {
+              state.sortMode = el.getAttribute('data-sort');
+              render();
+            });
+          });
+
+          main.querySelector('#btn-refresh-live')?.addEventListener('click', () => checkAndSyncHourly(true));
+
+          main.querySelectorAll('[data-nav]').forEach((el) => {
+            el.addEventListener('click', () => navigate({ name: el.getAttribute('data-nav') }));
+          });
+
+          // Explore events
+          main.querySelector('#explore-form')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const val = main.querySelector('#explore-input')?.value || '';
+            state.exploreQuery = val;
+            if (val.trim()) {
+              state.recentSearches = [val.trim(), ...state.recentSearches.filter((t) => t !== val.trim())].slice(0, 8);
+              safeStorage.set(STORAGE_KEYS.SEARCHES, state.recentSearches);
+            }
+            render();
+          });
+
+          main.querySelector('#btn-live-search')?.addEventListener('click', async () => {
+            const val = (main.querySelector('#explore-input')?.value || state.exploreQuery).trim();
+            if (!val) {
+              showToast('검색할 키워드를 입력해 주세요.');
+              return;
+            }
+            state.exploreQuery = val;
+            state.searchingLive = true;
+            render();
+            try {
+              const { issues } = await fetchLiveFeeds(val);
+              if (issues.length > 0) {
+                const seen = new Set(state.liveIssues.map((i) => i.id));
+                const fresh = issues.filter((i) => !seen.has(i.id));
+                state.liveIssues = [...fresh, ...state.liveIssues];
+                safeStorage.set(STORAGE_KEYS.CACHED_LIVE, state.liveIssues);
+                showToast(`‘${val}’ 실시간 기사 ${issues.length}건을 가져왔습니다.`);
+              } else {
+                showToast('실시간 RSS 검색 결과를 찾지 못했습니다.');
+              }
+            } finally {
+              state.searchingLive = false;
+              render();
+            }
+          });
+
+          main.querySelectorAll('[data-quick-search]').forEach((el) => {
+            el.addEventListener('click', () => {
+              state.exploreQuery = el.getAttribute('data-quick-search');
+              render();
+            });
+          });
+
+          main.querySelectorAll('[data-ex-cat]').forEach((el) => {
+            el.addEventListener('click', () => {
+              state.exploreCategory = el.getAttribute('data-ex-cat');
+              render();
+            });
+          });
+
+          // Detail events
+          main.querySelector('#btn-back')?.addEventListener('click', () => navigate(state.previousRoute || { name: 'home' }));
+
+          main.querySelector('#qa-form')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const input = main.querySelector('#qa-input');
+            const q = input?.value.trim();
+            if (!q || state.route.name !== 'detail') return;
+            const issue = getAllIssues().find((i) => i.id === state.route.issueId);
+            if (!issue) return;
+            const prev = state.qaMessagesByIssue[issue.id] || [
+              { role: 'bot', text: `‘${issue.title}’ 브리핑에 대해 궁금한 점을 물어보세요.` },
+            ];
+            state.qaMessagesByIssue[issue.id] = [
+              ...prev,
+              { role: 'user', text: q },
+              { role: 'bot', text: answerQuestionLocally(issue, q) },
+            ];
+            render();
+          });
+
+          main.querySelectorAll('[data-qa-quick]').forEach((el) => {
+            el.addEventListener('click', () => {
+              const q = el.getAttribute('data-qa-quick');
+              const input = main.querySelector('#qa-input');
+              if (input) input.value = q;
+              main.querySelector('#qa-form')?.dispatchEvent(new Event('submit', { cancelable: true }));
+            });
+          });
+
+          // Saved & MyPage events
+          main.querySelectorAll('[data-saved-tab]').forEach((el) => {
+            el.addEventListener('click', () => {
+              state.savedTab = el.getAttribute('data-saved-tab');
+              render();
+            });
+          });
+
+          main.querySelectorAll('[data-set-theme]').forEach((el) => {
+            el.addEventListener('click', () => {
+              state.prefs.theme = el.getAttribute('data-set-theme');
+              safeStorage.set(STORAGE_KEYS.PREFS, state.prefs);
+              render();
+            });
+          });
+
+          main.querySelectorAll('[data-pref-cat]').forEach((el) => {
+            el.addEventListener('click', () => {
+              const cat = el.getAttribute('data-pref-cat');
+              const exists = state.prefs.preferredCategories.includes(cat);
+              state.prefs.preferredCategories = exists
+                ? state.prefs.preferredCategories.filter((c) => c !== cat)
+                : [...state.prefs.preferredCategories, cat];
+              safeStorage.set(STORAGE_KEYS.PREFS, state.prefs);
+              render();
+            });
+          });
+
+          main.querySelectorAll('[data-export]').forEach((el) => {
+            el.addEventListener('click', () => exportBriefings(el.getAttribute('data-export')));
+          });
+
+          main.querySelector('#btn-copy-html')?.addEventListener('click', copyFullHtmlCode);
+          main.querySelectorAll('[data-dl-html]').forEach((el) => {
+            el.addEventListener('click', handleDownloadHtmlClick);
+          });
+
+          // Admin events
+          main.querySelector('#btn-toggle-admin-form')?.addEventListener('click', () => {
+            state.showAdminForm = !state.showAdminForm;
+            render();
+          });
+
+          main.querySelector('#btn-reset-samples')?.addEventListener('click', () => {
+            state.customIssues = RAW_SAMPLE_ISSUES;
+            safeStorage.set(STORAGE_KEYS.CUSTOM_ISSUES, RAW_SAMPLE_ISSUES);
+            showToast('기본 이슈 데이터로 초기화했습니다.');
+            render();
+          });
+
+          main.querySelector('#btn-adm-auto')?.addEventListener('click', () => {
+            const t = main.querySelector('#adm-title')?.value || '';
+            const s = main.querySelector('#adm-sub')?.value || '';
+            const res = classifyIssueCategory(`${t} ${s}`, 'controversy');
+            const sel = main.querySelector('#adm-cat');
+            if (sel) sel.value = res.primaryCategory;
+            showToast(`자동 분류 결과: ${CATEGORY_LABELS[res.primaryCategory]}`);
+          });
+
+          main.querySelector('#admin-create-form')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const title = main.querySelector('#adm-title')?.value.trim();
+            const subtitle = main.querySelector('#adm-sub')?.value.trim();
+            const category = main.querySelector('#adm-cat')?.value || 'controversy';
+            const scope = main.querySelector('#adm-scope')?.value || 'domestic';
+            const s1 = main.querySelector('#adm-s1')?.value.trim();
+            const overview = main.querySelector('#adm-overview')?.value.trim();
+            if (!title || !subtitle) return;
+
+            const newItem = {
+              id: `custom-${Date.now()}`,
+              title,
+              subtitle,
+              category,
+              scope,
+              regionLabel: scope === 'global' ? '글로벌' : `국내 · ${CATEGORY_LABELS[category]}`,
+              status: 'ongoing',
+              isNewDiscovery: true,
+              isBreaking: true,
+              heatIndex: 88,
+              publishedTimestamp: Date.now(),
+              tags: ['신규등록', CATEGORY_LABELS[category]],
+              summary30s: [
+                s1 || subtitle,
+                '관리자 콘솔에서 직접 등록된 이슈 브리핑입니다.',
+                '후속 경위가 확인되면 타임라인에 추가됩니다.',
+              ],
+              background: { overview: overview || subtitle, keyTerms: [] },
+              timeline: [{ id: `tl-${Date.now()}`, dateLabel: '방금', stage: '초기 등록', title: '이슈 브리핑 등록', description: subtitle }],
+              verifiedFacts: [],
+              unverifiedClaims: [],
+              officialStatements: [],
+              sources: [{ id: `src-${Date.now()}`, title, publisher: '관리자 등록', url: '#custom', publishedAt: '방금', isSamplePlaceholder: true }],
+              isSampleData: true,
+              dataOrigin: 'dev_sample',
+            };
+            state.customIssues = [newItem, ...state.customIssues];
+            safeStorage.set(STORAGE_KEYS.CUSTOM_ISSUES, state.customIssues);
+            state.showAdminForm = false;
+            showToast('새 이슈가 등록되었습니다.');
+            render();
+          });
+
+          main.querySelectorAll('[data-admin-status]').forEach((sel) => {
+            sel.addEventListener('change', () => {
+              const id = sel.getAttribute('data-admin-status');
+              const val = sel.value;
+              state.customIssues = state.customIssues.map((it) => (it.id === id ? { ...it, status: val } : it));
+              state.liveIssues = state.liveIssues.map((it) => (it.id === id ? { ...it, status: val } : it));
+              safeStorage.set(STORAGE_KEYS.CUSTOM_ISSUES, state.customIssues);
+              showToast('상태가 변경되었습니다.');
+              render();
+            });
+          });
+        }
+
+        // Global header & nav bindings
+        document.querySelectorAll('.site-header [data-nav], .mobile-nav [data-nav], .site-footer [data-nav]').forEach((btn) => {
+          btn.addEventListener('click', () => navigate({ name: btn.getAttribute('data-nav') }));
+        });
+
+        document.getElementById('btn-theme-toggle')?.addEventListener('click', () => {
+          state.prefs.theme = state.prefs.theme === 'dark' ? 'light' : 'dark';
+          safeStorage.set(STORAGE_KEYS.PREFS, state.prefs);
+          render();
+        });
+
+        document.getElementById('btn-download-html')?.addEventListener('click', handleDownloadHtmlClick);
+
+        window.addEventListener('hashchange', () => {
+          state.route = parseHash(window.location.hash);
+          render();
+        });
+
+        // Initial render + immediate RSS sync + 1-hour auto check loop
+        render();
+        checkAndSyncHourly(false);
+        setInterval(() => checkAndSyncHourly(false), HOURLY_INTERVAL_MS);
+        document.addEventListener('visibilitychange', () => {
+          if (document.visibilityState === 'visible' && Date.now() >= state.syncInfo.nextCheckAt) {
+            checkAndSyncHourly(false);
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
